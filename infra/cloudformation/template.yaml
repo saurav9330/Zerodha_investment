@@ -79,19 +79,17 @@ Resources: #“Here are the things I want AWS to build for me.”
         - Key: Name
           Value: !Sub ${ProjectName}-${EnvironmentName}-subnet-a
   
-  #you don’t have to define exactly two public subnets — but two is the minimum best practice for production.
-  #since we are learning so 1 is fine.
 
-  # PublicSubnetB:
-  #   Type: AWS::EC2::Subnet
-  #   Properties:
-  #     VpcId: !Ref PipelineVpc
-  #     CidrBlock: 10.20.2.0/24
-  #     AvailabilityZone: !Select [1, !GetAZs ""]
-  #     MapPublicIpOnLaunch: true
-  #     Tags:
-  #       - Key: Name
-  #         Value: !Sub ${ProjectName}-${EnvironmentName}-subnet-b
+  PublicSubnetB:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref PipelineVpc
+      CidrBlock: 10.20.2.0/24
+      AvailabilityZone: !Select [1, !GetAZs ""]
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: !Sub ${ProjectName}-${EnvironmentName}-subnet-b
 
   PublicRouteTable:
     Type: AWS::EC2::RouteTable #This creates a Route Table inside your vpc
