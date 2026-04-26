@@ -41,84 +41,60 @@ Parameters:
     NoEcho: true
     Default: ChangeMe123!
 
-Resources: #“Here are the things I want AWS to build for me.”
-  PipelineVpc: #This is the logical name of your resource.You can call it anything.
-    Type: AWS::EC2::VPC  #Here, you're creating a VPC
+Resources: 
+  PipelineVpc: 
+    Type: AWS::EC2::VPC  
     Properties:
-      CidrBlock: 10.20.0.0/16  # an ip has 32 bits. this /16(CIDR) divide this by 8. the quotoient means that many starting part of ip are fixed. here 16/8=2 which means first two i.e 10.20 are fixed. rest can change.it means give me a network that spans ALL Availability Zones in this region”
-      EnableDnsHostnames: true
+      CidrBlock: 10.20.0.0/16  
       EnableDnsSupport: true
       Tags:
         - Key: Name
           Value: !Sub ${ProjectName}-${EnvironmentName}-vpc
-# Your VPC must use private ranges:
 
-# 10.0.0.0 – 10.255.255.255 (most common)
-# 172.16.0.0 – 172.31.255.255
-# 192.168.0.0 – 192.168.255.255
-
-# 👉 Your 10.20.0.0/16 is from the first range — perfectly valid.
 
   InternetGateway:
-    Type: AWS::EC2::InternetGateway #create an internet gateway
+    Type: AWS::EC2::InternetGateway 
 
   VpcGatewayAttachment:
-    Type: AWS::EC2::VPCGatewayAttachment #This simply attaches an Internet Gateway to your VPC
+    Type: AWS::EC2::VPCGatewayAttachment 
     Properties:
-      VpcId: !Ref PipelineVpc #“Use the VPC we created earlier”
-      InternetGatewayId: !Ref InternetGateway #“Use the Internet Gateway resource we defined in line 65”
+      VpcId: !Ref PipelineVpc 
+      InternetGatewayId: !Ref InternetGateway 
 
   PublicSubnetA:
-    Type: AWS::EC2::Subnet #This creates a subnet inside your VPC
+    Type: AWS::EC2::Subnet 
     Properties:
       VpcId: !Ref PipelineVpc
       CidrBlock: 10.20.1.0/24
-      AvailabilityZone: !Select [0, !GetAZs ""] #assign the availability zone
-      MapPublicIpOnLaunch: true #“Whenever I launch an EC2 instance here, automatically assign it a public IP address.”
-      Tags:
+      AvailabilityZone: !Select [0, !GetAZs ""] 
+      MapPublicIpOnLaunch: true 
         - Key: Name
           Value: !Sub ${ProjectName}-${EnvironmentName}-subnet-a
   
-  #you don’t have to define exactly two public subnets — but two is the minimum best practice for production.
-  #since we are learning so 1 is fine.
-
-  # PublicSubnetB:
-  #   Type: AWS::EC2::Subnet
-  #   Properties:
-  #     VpcId: !Ref PipelineVpc
-  #     CidrBlock: 10.20.2.0/24
-  #     AvailabilityZone: !Select [1, !GetAZs ""]
-  #     MapPublicIpOnLaunch: true
-  #     Tags:
-  #       - Key: Name
-  #         Value: !Sub ${ProjectName}-${EnvironmentName}-subnet-b
+ 
 
   PublicRouteTable:
-    Type: AWS::EC2::RouteTable #This creates a Route Table inside your vpc
+    Type: AWS::EC2::RouteTable 
     Properties:
       VpcId: !Ref PipelineVpc
 
   DefaultPublicRoute:
-    Type: AWS::EC2::Route #This creates a route (rule) inside your route table in the vpc
+    Type: AWS::EC2::Route 
     DependsOn: VpcGatewayAttachment
     Properties:
       RouteTableId: !Ref PublicRouteTable
-      DestinationCidrBlock: 0.0.0.0/0 #“Any IP address in the world”. your ec2 can access internet
+      DestinationCidrBlock: 0.0.0.0/0 
       GatewayId: !Ref InternetGateway
 
   PublicSubnetARouteAssociation:
-    Type: AWS::EC2::SubnetRouteTableAssociation #“Attach this subnet to this route table”
+    Type: AWS::EC2::SubnetRouteTableAssociation 
     Properties:
       RouteTableId: !Ref PublicRouteTable
       SubnetId: !Ref PublicSubnetA
 
-  # PublicSubnetBRouteAssociation:
-  #   Type: AWS::EC2::SubnetRouteTableAssociation
-  #   Properties:
-  #     RouteTableId: !Ref PublicRouteTable
-  #     SubnetId: !Ref PublicSubnetB
+  
 
-  RedshiftSecurityGroup: #A Redshift security group is simply the firewall for your Redshift cluster.it means Who can connect to your cluster and on which port
+  RedshiftSecurityGroup: 
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Redshift Serverless access for SQL clients and Glue.
@@ -127,7 +103,7 @@ Resources: #“Here are the things I want AWS to build for me.”
         - IpProtocol: tcp
           FromPort: 5439
           ToPort: 5439
-          CidrIp: !Ref AllowedIngressCidr #use your IP address 
+          CidrIp: !Ref AllowedIngressCidr 
       Tags:
         - Key: Name
           Value: !Sub ${ProjectName}-${EnvironmentName}-redshift-sg
@@ -154,12 +130,12 @@ Resources: #“Here are the things I want AWS to build for me.”
         Status: Enabled
 
   PipelineNotificationTopic:
-    Type: AWS::SNS::Topic #create topic
+    Type: AWS::SNS::Topic 
     Properties:
       TopicName: !Sub ${ProjectName}-${EnvironmentName}-notifications
 
   PipelineNotificationSubscription:
-    Type: AWS::SNS::Subscription #subscribe to topic
+    Type: AWS::SNS::Subscription 
     Properties:
       Protocol: email
       Endpoint: !Ref NotificationEmail
@@ -184,12 +160,12 @@ Resources: #“Here are the things I want AWS to build for me.”
             Version: "2012-10-17"
             Statement:
               - Effect: Allow
-                Action: #glue can read,write,delete,list s3 files
+                Action: 
                   - s3:GetObject
                   - s3:PutObject
                   - s3:DeleteObject
                   - s3:ListBucket
-                Resource: #Where Glue has access
+                Resource: 
                   - !GetAtt ArtifactBucket.Arn
                   - !Sub ${ArtifactBucket.Arn}/*
                   - !GetAtt RawBucket.Arn
@@ -217,7 +193,7 @@ Resources: #“Here are the things I want AWS to build for me.”
   RedshiftCopyRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Sub ${ProjectName}-${EnvironmentName}-redshift-copy-role # !Sub means substitute.Because CloudFormation templates are static, but AWS resources need dynamic names.
+      RoleName: !Sub ${ProjectName}-${EnvironmentName}-redshift-copy-role 
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -236,9 +212,9 @@ Resources: #“Here are the things I want AWS to build for me.”
                 Action:
                   - s3:GetObject
                   - s3:ListBucket
-                Resource: #“Which S3 buckets these permissions apply to”
-                  - !GetAtt RawBucket.Arn #This refers to the bucket itself(arn:aws:s3:::raw-bucket. used for ListBucket)
-                  - !Sub ${RawBucket.Arn}/*  #Means ALL files inside raw bucket (arn:aws:s3:::raw-bucket/*)
+                Resource: 
+                  - !GetAtt RawBucket.Arn 
+                  - !Sub ${RawBucket.Arn}/*  
                   - !GetAtt CuratedBucket.Arn
                   - !Sub ${CuratedBucket.Arn}/*
 
@@ -271,16 +247,16 @@ Resources: #“Here are the things I want AWS to build for me.”
                 Resource: !Ref PipelineNotificationTopic
 
   SchedulerExecutionRole:
-    Type: AWS::IAM::Role #This creates an IAM Role in AWS.
+    Type: AWS::IAM::Role 
     Properties:
       RoleName: !Sub ${ProjectName}-${EnvironmentName}-scheduler-role
-      AssumeRolePolicyDocument: #“Who is allowed to USE this role?”
+      AssumeRolePolicyDocument: 
         Version: "2012-10-17"
         Statement:
           - Effect: Allow
             Principal:
-              Service: scheduler.amazonaws.com #Only EventBridge Scheduler can use this role
-            Action: sts:AssumeRole #Scheduler is allowed to “take this role temporarily”
+              Service: scheduler.amazonaws.com 
+            Action: sts:AssumeRole 
       Policies:
         - PolicyName: scheduler-start-stepfunctions-inline
           PolicyDocument:
@@ -288,8 +264,8 @@ Resources: #“Here are the things I want AWS to build for me.”
             Statement:
               - Effect: Allow
                 Action:
-                  - states:StartExecution #Start AWS Step Function execution
-                Resource: !Ref BrokerageStateMachine #This limits permission to:ONLY this specific Step Function.Not all state machines — only this one
+                  - states:StartExecution 
+                Resource: !Ref BrokerageStateMachine 
 
   RedshiftNamespace:
     Type: AWS::RedshiftServerless::Namespace
@@ -322,15 +298,15 @@ Resources: #“Here are the things I want AWS to build for me.”
         - !Ref RedshiftSecurityGroup
       SubnetIds:
         - !Ref PublicSubnetA
-      #  - !Ref PublicSubnetB
+      
 
   MasterDataGlueJob:
-    Type: AWS::Glue::Job #You are creating a job in AWS Glue
+    Type: AWS::Glue::Job 
     Properties:
       Name: !Sub ${ProjectName}-${EnvironmentName}-master-job
-      Role: !GetAtt GlueExecutionRole.Arn #get ARN of role created
+      Role: !GetAtt GlueExecutionRole.Arn 
       Command:
-        Name: glueetl #“Run this job using the Glue ETL engine (Spark/PySpark)” we can give pythonshell(simple python script),gluestreaming(streaming jobs)
+        Name: glueetl
         ScriptLocation: !Sub s3://${ArtifactBucketName}/src/glue/jobs/job_master_data.py
         PythonVersion: "3"
       DefaultArguments:
@@ -593,18 +569,18 @@ Resources: #“Here are the things I want AWS to build for me.”
         }
 
   DailyPipelineSchedule:
-    Type: AWS::Scheduler::Schedule #“Create an EventBridge Scheduler rule”
+    Type: AWS::Scheduler::Schedule 
     Properties:
       FlexibleTimeWindow: 
-        Mode: "OFF" # So if schedule is 2:00 AM → it runs exactly at 2:00 AM. no delay allowed
+        Mode: "OFF" 
       GroupName: default
       Name: !Sub ${ProjectName}-${EnvironmentName}-daily-schedule
       ScheduleExpression: !Ref DailyScheduleExpression
       ScheduleExpressionTimezone: Asia/Kolkata
       Target:
-        Arn: !Ref BrokerageStateMachine  # Run this AWS Step Function
-        RoleArn: !GetAtt SchedulerExecutionRole.Arn  #AWS needs permission to invoke Step Function,pass input.This role provides that access.
-        Input: !Sub | #This defines the JSON passed to Step Function.!Sub = allows variable substitution inside JSON.| = multi-line string
+        Arn: !Ref BrokerageStateMachine  
+        RoleArn: !GetAtt SchedulerExecutionRole.Arn  
+        Input: !Sub | 
           {
             "sns_topic_arn": "${PipelineNotificationTopic}",
             "master_job_name": "${MasterDataGlueJob}",
@@ -619,7 +595,7 @@ Resources: #“Here are the things I want AWS to build for me.”
             "redshift_database_name": "${RedshiftDatabaseName}"
           }
 
-Outputs:  #“After creating all resources, show me these important values”
+Outputs:  
   RawBucketName:
     Value: !Ref RawBucket
   CuratedBucketName:
