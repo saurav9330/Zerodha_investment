@@ -79,19 +79,17 @@ Resources: #“Here are the things I want AWS to build for me.”
         - Key: Name
           Value: !Sub ${ProjectName}-${EnvironmentName}-subnet-a
   
-  #you don’t have to define exactly two public subnets — but two is the minimum best practice for production.
-  #since we are learning so 1 is fine.
 
-  # PublicSubnetB:
-  #   Type: AWS::EC2::Subnet
-  #   Properties:
-  #     VpcId: !Ref PipelineVpc
-  #     CidrBlock: 10.20.2.0/24
-  #     AvailabilityZone: !Select [1, !GetAZs ""]
-  #     MapPublicIpOnLaunch: true
-  #     Tags:
-  #       - Key: Name
-  #         Value: !Sub ${ProjectName}-${EnvironmentName}-subnet-b
+  PublicSubnetB:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref PipelineVpc
+      CidrBlock: 10.20.2.0/24
+      AvailabilityZone: !Select [1, !GetAZs ""]
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: !Sub ${ProjectName}-${EnvironmentName}-subnet-b
 
   PublicRouteTable:
     Type: AWS::EC2::RouteTable #This creates a Route Table inside your vpc
@@ -112,11 +110,11 @@ Resources: #“Here are the things I want AWS to build for me.”
       RouteTableId: !Ref PublicRouteTable
       SubnetId: !Ref PublicSubnetA
 
-  # PublicSubnetBRouteAssociation:
-  #   Type: AWS::EC2::SubnetRouteTableAssociation
-  #   Properties:
-  #     RouteTableId: !Ref PublicRouteTable
-  #     SubnetId: !Ref PublicSubnetB
+  PublicSubnetBRouteAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      SubnetId: !Ref PublicSubnetB
 
   RedshiftSecurityGroup: #A Redshift security group is simply the firewall for your Redshift cluster.it means Who can connect to your cluster and on which port
     Type: AWS::EC2::SecurityGroup
@@ -322,7 +320,7 @@ Resources: #“Here are the things I want AWS to build for me.”
         - !Ref RedshiftSecurityGroup
       SubnetIds:
         - !Ref PublicSubnetA
-      #  - !Ref PublicSubnetB
+        - !Ref PublicSubnetB
 
   MasterDataGlueJob:
     Type: AWS::Glue::Job #You are creating a job in AWS Glue
