@@ -1,0 +1,501 @@
+customer_id,customer_name,email,mobile_number,city_name,state_name,country_name,risk_band,kyc_status
+CUST000001,Customer 000001,customer000001@example.com,9835714784,Pune,Maharashtra,India,LOW,VERIFIED
+CUST000002,Customer 000002,customer000002@example.com,9866623995,Pune,Maharashtra,India,LOW,VERIFIED
+CUST000003,Customer 000003,customer000003@example.com,9820117988,Pune,Maharashtra,India,MEDIUM,VERIFIED
+CUST000004,Customer 000004,customer000004@example.com,9883863413,Ahmedabad,Gujarat,India,LOW,PENDING
+CUST000005,Customer 000005,customer000005@example.com,9811980765,Delhi,Delhi,India,LOW,VERIFIED
+CUST000006,Customer 000006,customer000006@example.com,9841726318,Ahmedabad,Gujarat,India,LOW,VERIFIED
+CUST000007,Customer 000007,customer000007@example.com,9838688676,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000008,Customer 000008,customer000008@example.com,9860864911,Pune,Maharashtra,India,LOW,VERIFIED
+CUST000009,Customer 000009,customer000009@example.com,9871070189,Bengaluru,Karnataka,India,MEDIUM,VERIFIED
+CUST000010,Customer 000010,customer000010@example.com,9884593961,Chennai,Tamil Nadu,India,HIGH,VERIFIED
+CUST000011,Customer 000011,customer000011@example.com,9835487660,Pune,Maharashtra,India,MEDIUM,VERIFIED
+CUST000012,Customer 000012,customer000012@example.com,9887736262,Mumbai,Maharashtra,India,HIGH,VERIFIED
+CUST000013,Customer 000013,customer000013@example.com,9852091325,Chennai,Tamil Nadu,India,LOW,PENDING
+CUST000014,Customer 000014,customer000014@example.com,9877491435,Hyderabad,Telangana,India,HIGH,VERIFIED
+CUST000015,Customer 000015,customer000015@example.com,9820752378,Delhi,Delhi,India,LOW,PENDING
+CUST000016,Customer 000016,customer000016@example.com,9841568532,Mumbai,Maharashtra,India,MEDIUM,VERIFIED
+CUST000017,Customer 000017,customer000017@example.com,9843046464,Delhi,Delhi,India,HIGH,VERIFIED
+CUST000018,Customer 000018,customer000018@example.com,9821003626,Delhi,Delhi,India,MEDIUM,VERIFIED
+CUST000019,Customer 000019,customer000019@example.com,9880166708,Delhi,Delhi,India,MEDIUM,VERIFIED
+CUST000020,Customer 000020,customer000020@example.com,9899889098,Pune,Maharashtra,India,HIGH,VERIFIED
+CUST000021,Customer 000021,customer000021@example.com,9863121477,Bengaluru,Karnataka,India,LOW,VERIFIED
+CUST000022,Customer 000022,customer000022@example.com,9871367643,Bengaluru,Karnataka,India,MEDIUM,VERIFIED
+CUST000023,Customer 000023,customer000023@example.com,9811250299,Mumbai,Maharashtra,India,MEDIUM,VERIFIED
+CUST000024,Customer 000024,customer000024@example.com,9823419256,Delhi,Delhi,India,LOW,VERIFIED
+CUST000025,Customer 000025,customer000025@example.com,9845594597,Delhi,Delhi,India,LOW,VERIFIED
+CUST000026,Customer 000026,customer000026@example.com,9842787299,Mumbai,Maharashtra,India,MEDIUM,VERIFIED
+CUST000027,Customer 000027,customer000027@example.com,9882909480,Hyderabad,Telangana,India,HIGH,VERIFIED
+CUST000028,Customer 000028,customer000028@example.com,9897775215,Ahmedabad,Gujarat,India,HIGH,PENDING
+CUST000029,Customer 000029,customer000029@example.com,9884437458,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000030,Customer 000030,customer000030@example.com,9828024248,Mumbai,Maharashtra,India,MEDIUM,VERIFIED
+CUST000031,Customer 000031,customer000031@example.com,9884252420,Mumbai,Maharashtra,India,LOW,VERIFIED
+CUST000032,Customer 000032,customer000032@example.com,9838270233,Delhi,Delhi,India,HIGH,VERIFIED
+CUST000033,Customer 000033,customer000033@example.com,9895125977,Chennai,Tamil Nadu,India,MEDIUM,VERIFIED
+CUST000034,Customer 000034,customer000034@example.com,9816818112,Bengaluru,Karnataka,India,LOW,VERIFIED
+CUST000035,Customer 000035,customer000035@example.com,9847135391,Ahmedabad,Gujarat,India,LOW,PENDING
+CUST000036,Customer 000036,customer000036@example.com,9827558317,Ahmedabad,Gujarat,India,HIGH,VERIFIED
+CUST000037,Customer 000037,customer000037@example.com,9869302158,Pune,Maharashtra,India,HIGH,VERIFIED
+CUST000038,Customer 000038,customer000038@example.com,9811297845,Delhi,Delhi,India,LOW,PENDING
+CUST000039,Customer 000039,customer000039@example.com,9830005727,Chennai,Tamil Nadu,India,HIGH,PENDING
+CUST000040,Customer 000040,customer000040@example.com,9888183110,Bengaluru,Karnataka,India,HIGH,VERIFIED
+CUST000041,Customer 000041,customer000041@example.com,9815614174,Pune,Maharashtra,India,MEDIUM,VERIFIED
+CUST000042,Customer 000042,customer000042@example.com,9815354599,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000043,Customer 000043,customer000043@example.com,9899514287,Pune,Maharashtra,India,LOW,VERIFIED
+CUST000044,Customer 000044,customer000044@example.com,9864543049,Delhi,Delhi,India,HIGH,VERIFIED
+CUST000045,Customer 000045,customer000045@example.com,9831810617,Pune,Maharashtra,India,LOW,VERIFIED
+CUST000046,Customer 000046,customer000046@example.com,9834073380,Mumbai,Maharashtra,India,HIGH,VERIFIED
+CUST000047,Customer 000047,customer000047@example.com,9865259205,Ahmedabad,Gujarat,India,HIGH,VERIFIED
+CUST000048,Customer 000048,customer000048@example.com,9843308443,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000049,Customer 000049,customer000049@example.com,9824508349,Chennai,Tamil Nadu,India,MEDIUM,VERIFIED
+CUST000050,Customer 000050,customer000050@example.com,9873174945,Ahmedabad,Gujarat,India,LOW,VERIFIED
+CUST000051,Customer 000051,customer000051@example.com,9856930359,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000052,Customer 000052,customer000052@example.com,9840547349,Ahmedabad,Gujarat,India,LOW,PENDING
+CUST000053,Customer 000053,customer000053@example.com,9863481198,Pune,Maharashtra,India,MEDIUM,VERIFIED
+CUST000054,Customer 000054,customer000054@example.com,9847463522,Mumbai,Maharashtra,India,MEDIUM,VERIFIED
+CUST000055,Customer 000055,customer000055@example.com,9881969657,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000056,Customer 000056,customer000056@example.com,9845059710,Mumbai,Maharashtra,India,LOW,VERIFIED
+CUST000057,Customer 000057,customer000057@example.com,9815134794,Bengaluru,Karnataka,India,LOW,VERIFIED
+CUST000058,Customer 000058,customer000058@example.com,9852101056,Bengaluru,Karnataka,India,MEDIUM,VERIFIED
+CUST000059,Customer 000059,customer000059@example.com,9825521714,Delhi,Delhi,India,MEDIUM,VERIFIED
+CUST000060,Customer 000060,customer000060@example.com,9844188276,Pune,Maharashtra,India,LOW,VERIFIED
+CUST000061,Customer 000061,customer000061@example.com,9879782527,Mumbai,Maharashtra,India,HIGH,VERIFIED
+CUST000062,Customer 000062,customer000062@example.com,9836445607,Chennai,Tamil Nadu,India,MEDIUM,VERIFIED
+CUST000063,Customer 000063,customer000063@example.com,9854318698,Chennai,Tamil Nadu,India,HIGH,VERIFIED
+CUST000064,Customer 000064,customer000064@example.com,9826726926,Ahmedabad,Gujarat,India,HIGH,VERIFIED
+CUST000065,Customer 000065,customer000065@example.com,9851511484,Delhi,Delhi,India,HIGH,VERIFIED
+CUST000066,Customer 000066,customer000066@example.com,9849682169,Hyderabad,Telangana,India,HIGH,VERIFIED
+CUST000067,Customer 000067,customer000067@example.com,9899245317,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000068,Customer 000068,customer000068@example.com,9892613013,Pune,Maharashtra,India,HIGH,VERIFIED
+CUST000069,Customer 000069,customer000069@example.com,9810054484,Delhi,Delhi,India,MEDIUM,VERIFIED
+CUST000070,Customer 000070,customer000070@example.com,9887844239,Hyderabad,Telangana,India,HIGH,VERIFIED
+CUST000071,Customer 000071,customer000071@example.com,9869295515,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000072,Customer 000072,customer000072@example.com,9873509974,Delhi,Delhi,India,HIGH,VERIFIED
+CUST000073,Customer 000073,customer000073@example.com,9848089166,Mumbai,Maharashtra,India,HIGH,VERIFIED
+CUST000074,Customer 000074,customer000074@example.com,9854988206,Delhi,Delhi,India,LOW,VERIFIED
+CUST000075,Customer 000075,customer000075@example.com,9841523529,Ahmedabad,Gujarat,India,HIGH,VERIFIED
+CUST000076,Customer 000076,customer000076@example.com,9836726767,Ahmedabad,Gujarat,India,LOW,PENDING
+CUST000077,Customer 000077,customer000077@example.com,9873771720,Pune,Maharashtra,India,HIGH,VERIFIED
+CUST000078,Customer 000078,customer000078@example.com,9871124923,Mumbai,Maharashtra,India,MEDIUM,VERIFIED
+CUST000079,Customer 000079,customer000079@example.com,9836096655,Delhi,Delhi,India,HIGH,VERIFIED
+CUST000080,Customer 000080,customer000080@example.com,9863640499,Hyderabad,Telangana,India,LOW,VERIFIED
+CUST000081,Customer 000081,customer000081@example.com,9810744212,Chennai,Tamil Nadu,India,LOW,VERIFIED
+CUST000082,Customer 000082,customer000082@example.com,9833607110,Pune,Maharashtra,India,HIGH,VERIFIED
+CUST000083,Customer 000083,customer000083@example.com,9884813739,Mumbai,Maharashtra,India,LOW,VERIFIED
+CUST000084,Customer 000084,customer000084@example.com,9871265269,Mumbai,Maharashtra,India,LOW,VERIFIED
+CUST000085,Customer 000085,customer000085@example.com,9881287314,Chennai,Tamil Nadu,India,HIGH,VERIFIED
+CUST000086,Customer 000086,customer000086@example.com,9869401199,Ahmedabad,Gujarat,India,HIGH,VERIFIED
+CUST000087,Customer 000087,customer000087@example.com,9867276174,Delhi,Delhi,India,HIGH,VERIFIED
+CUST000088,Customer 000088,customer000088@example.com,9873709724,Pune,Maharashtra,India,MEDIUM,VERIFIED
+CUST000089,Customer 000089,customer000089@example.com,9895585469,Pune,Maharashtra,India,MEDIUM,VERIFIED
+CUST000090,Customer 000090,customer000090@example.com,9875041510,Delhi,Delhi,India,HIGH,VERIFIED
+CUST000091,Customer 000091,customer000091@example.com,9820399639,Hyderabad,Telangana,India,HIGH,VERIFIED
+CUST000092,Customer 000092,customer000092@example.com,9855076693,Bengaluru,Karnataka,India,MEDIUM,VERIFIED
+CUST000093,Customer 000093,customer000093@example.com,9828572252,Mumbai,Maharashtra,India,LOW,VERIFIED
+CUST000094,Customer 000094,customer000094@example.com,9830509175,Chennai,Tamil Nadu,India,HIGH,VERIFIED
+CUST000095,Customer 000095,customer000095@example.com,9864707061,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000096,Customer 000096,customer000096@example.com,9818357162,Hyderabad,Telangana,India,LOW,VERIFIED
+CUST000097,Customer 000097,customer000097@example.com,9888393811,Hyderabad,Telangana,India,HIGH,PENDING
+CUST000098,Customer 000098,customer000098@example.com,9887267850,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000099,Customer 000099,customer000099@example.com,9850079111,Bengaluru,Karnataka,India,MEDIUM,VERIFIED
+CUST000100,Customer 000100,customer000100@example.com,9866240084,Ahmedabad,Gujarat,India,HIGH,VERIFIED
+CUST000101,Customer 000101,customer000101@example.com,9890967191,Delhi,Delhi,India,LOW,VERIFIED
+CUST000102,Customer 000102,customer000102@example.com,9868496914,Bengaluru,Karnataka,India,MEDIUM,PENDING
+CUST000103,Customer 000103,customer000103@example.com,9899774697,Bengaluru,Karnataka,India,HIGH,VERIFIED
+CUST000104,Customer 000104,customer000104@example.com,9832151928,Chennai,Tamil Nadu,India,MEDIUM,VERIFIED
+CUST000105,Customer 000105,customer000105@example.com,9881688860,Delhi,Delhi,India,LOW,VERIFIED
+CUST000106,Customer 000106,customer000106@example.com,9885751409,Delhi,Delhi,India,HIGH,PENDING
+CUST000107,Customer 000107,customer000107@example.com,9867527432,Chennai,Tamil Nadu,India,LOW,VERIFIED
+CUST000108,Customer 000108,customer000108@example.com,9816749089,Pune,Maharashtra,India,MEDIUM,VERIFIED
+CUST000109,Customer 000109,customer000109@example.com,9871028710,Pune,Maharashtra,India,MEDIUM,VERIFIED
+CUST000110,Customer 000110,customer000110@example.com,9847346970,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000111,Customer 000111,customer000111@example.com,9873123515,Mumbai,Maharashtra,India,LOW,VERIFIED
+CUST000112,Customer 000112,customer000112@example.com,9856970882,Mumbai,Maharashtra,India,LOW,VERIFIED
+CUST000113,Customer 000113,customer000113@example.com,9897477029,Ahmedabad,Gujarat,India,LOW,VERIFIED
+CUST000114,Customer 000114,customer000114@example.com,9836757737,Pune,Maharashtra,India,LOW,VERIFIED
+CUST000115,Customer 000115,customer000115@example.com,9826941092,Pune,Maharashtra,India,MEDIUM,VERIFIED
+CUST000116,Customer 000116,customer000116@example.com,9839254705,Delhi,Delhi,India,MEDIUM,VERIFIED
+CUST000117,Customer 000117,customer000117@example.com,9859512272,Ahmedabad,Gujarat,India,LOW,VERIFIED
+CUST000118,Customer 000118,customer000118@example.com,9825372341,Chennai,Tamil Nadu,India,LOW,VERIFIED
+CUST000119,Customer 000119,customer000119@example.com,9887669750,Mumbai,Maharashtra,India,LOW,VERIFIED
+CUST000120,Customer 000120,customer000120@example.com,9860372847,Delhi,Delhi,India,MEDIUM,VERIFIED
+CUST000121,Customer 000121,customer000121@example.com,9820200074,Pune,Maharashtra,India,HIGH,VERIFIED
+CUST000122,Customer 000122,customer000122@example.com,9842594692,Chennai,Tamil Nadu,India,LOW,VERIFIED
+CUST000123,Customer 000123,customer000123@example.com,9890585882,Bengaluru,Karnataka,India,LOW,VERIFIED
+CUST000124,Customer 000124,customer000124@example.com,9815512205,Delhi,Delhi,India,MEDIUM,VERIFIED
+CUST000125,Customer 000125,customer000125@example.com,9859737181,Chennai,Tamil Nadu,India,LOW,VERIFIED
+CUST000126,Customer 000126,customer000126@example.com,9811698142,Bengaluru,Karnataka,India,MEDIUM,VERIFIED
+CUST000127,Customer 000127,customer000127@example.com,9868186525,Mumbai,Maharashtra,India,MEDIUM,VERIFIED
+CUST000128,Customer 000128,customer000128@example.com,9871705170,Ahmedabad,Gujarat,India,HIGH,VERIFIED
+CUST000129,Customer 000129,customer000129@example.com,9880027662,Pune,Maharashtra,India,HIGH,VERIFIED
+CUST000130,Customer 000130,customer000130@example.com,9882232344,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000131,Customer 000131,customer000131@example.com,9889520597,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000132,Customer 000132,customer000132@example.com,9821631697,Pune,Maharashtra,India,MEDIUM,VERIFIED
+CUST000133,Customer 000133,customer000133@example.com,9872372114,Pune,Maharashtra,India,HIGH,VERIFIED
+CUST000134,Customer 000134,customer000134@example.com,9855150390,Hyderabad,Telangana,India,LOW,VERIFIED
+CUST000135,Customer 000135,customer000135@example.com,9834406132,Bengaluru,Karnataka,India,MEDIUM,VERIFIED
+CUST000136,Customer 000136,customer000136@example.com,9844675473,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000137,Customer 000137,customer000137@example.com,9847080140,Delhi,Delhi,India,HIGH,PENDING
+CUST000138,Customer 000138,customer000138@example.com,9821490777,Pune,Maharashtra,India,LOW,VERIFIED
+CUST000139,Customer 000139,customer000139@example.com,9884514489,Hyderabad,Telangana,India,LOW,VERIFIED
+CUST000140,Customer 000140,customer000140@example.com,9875876924,Chennai,Tamil Nadu,India,MEDIUM,VERIFIED
+CUST000141,Customer 000141,customer000141@example.com,9849491631,Mumbai,Maharashtra,India,LOW,VERIFIED
+CUST000142,Customer 000142,customer000142@example.com,9851098277,Pune,Maharashtra,India,HIGH,VERIFIED
+CUST000143,Customer 000143,customer000143@example.com,9884285882,Hyderabad,Telangana,India,HIGH,VERIFIED
+CUST000144,Customer 000144,customer000144@example.com,9883871890,Chennai,Tamil Nadu,India,MEDIUM,VERIFIED
+CUST000145,Customer 000145,customer000145@example.com,9846361787,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000146,Customer 000146,customer000146@example.com,9835848226,Mumbai,Maharashtra,India,MEDIUM,VERIFIED
+CUST000147,Customer 000147,customer000147@example.com,9834850391,Delhi,Delhi,India,LOW,VERIFIED
+CUST000148,Customer 000148,customer000148@example.com,9847111151,Hyderabad,Telangana,India,HIGH,VERIFIED
+CUST000149,Customer 000149,customer000149@example.com,9880415568,Ahmedabad,Gujarat,India,HIGH,VERIFIED
+CUST000150,Customer 000150,customer000150@example.com,9836054020,Mumbai,Maharashtra,India,MEDIUM,VERIFIED
+CUST000151,Customer 000151,customer000151@example.com,9850569669,Pune,Maharashtra,India,LOW,VERIFIED
+CUST000152,Customer 000152,customer000152@example.com,9846817443,Pune,Maharashtra,India,LOW,VERIFIED
+CUST000153,Customer 000153,customer000153@example.com,9849209916,Delhi,Delhi,India,HIGH,VERIFIED
+CUST000154,Customer 000154,customer000154@example.com,9875884623,Chennai,Tamil Nadu,India,LOW,VERIFIED
+CUST000155,Customer 000155,customer000155@example.com,9848163378,Delhi,Delhi,India,MEDIUM,VERIFIED
+CUST000156,Customer 000156,customer000156@example.com,9834744872,Bengaluru,Karnataka,India,LOW,VERIFIED
+CUST000157,Customer 000157,customer000157@example.com,9874119726,Ahmedabad,Gujarat,India,LOW,VERIFIED
+CUST000158,Customer 000158,customer000158@example.com,9876001106,Hyderabad,Telangana,India,LOW,VERIFIED
+CUST000159,Customer 000159,customer000159@example.com,9817195288,Chennai,Tamil Nadu,India,LOW,VERIFIED
+CUST000160,Customer 000160,customer000160@example.com,9850780112,Delhi,Delhi,India,LOW,VERIFIED
+CUST000161,Customer 000161,customer000161@example.com,9884903294,Mumbai,Maharashtra,India,MEDIUM,VERIFIED
+CUST000162,Customer 000162,customer000162@example.com,9893002706,Ahmedabad,Gujarat,India,LOW,VERIFIED
+CUST000163,Customer 000163,customer000163@example.com,9870467027,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000164,Customer 000164,customer000164@example.com,9867556566,Delhi,Delhi,India,MEDIUM,VERIFIED
+CUST000165,Customer 000165,customer000165@example.com,9891823275,Mumbai,Maharashtra,India,HIGH,PENDING
+CUST000166,Customer 000166,customer000166@example.com,9837888820,Ahmedabad,Gujarat,India,HIGH,VERIFIED
+CUST000167,Customer 000167,customer000167@example.com,9820896797,Chennai,Tamil Nadu,India,LOW,VERIFIED
+CUST000168,Customer 000168,customer000168@example.com,9820075036,Delhi,Delhi,India,LOW,PENDING
+CUST000169,Customer 000169,customer000169@example.com,9889699989,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000170,Customer 000170,customer000170@example.com,9848668783,Pune,Maharashtra,India,HIGH,VERIFIED
+CUST000171,Customer 000171,customer000171@example.com,9870939053,Ahmedabad,Gujarat,India,LOW,VERIFIED
+CUST000172,Customer 000172,customer000172@example.com,9893893865,Bengaluru,Karnataka,India,HIGH,VERIFIED
+CUST000173,Customer 000173,customer000173@example.com,9867061186,Pune,Maharashtra,India,LOW,VERIFIED
+CUST000174,Customer 000174,customer000174@example.com,9829997018,Chennai,Tamil Nadu,India,MEDIUM,VERIFIED
+CUST000175,Customer 000175,customer000175@example.com,9818004482,Mumbai,Maharashtra,India,LOW,VERIFIED
+CUST000176,Customer 000176,customer000176@example.com,9886397676,Delhi,Delhi,India,MEDIUM,VERIFIED
+CUST000177,Customer 000177,customer000177@example.com,9850814428,Hyderabad,Telangana,India,HIGH,VERIFIED
+CUST000178,Customer 000178,customer000178@example.com,9877172238,Bengaluru,Karnataka,India,HIGH,VERIFIED
+CUST000179,Customer 000179,customer000179@example.com,9890267122,Mumbai,Maharashtra,India,LOW,VERIFIED
+CUST000180,Customer 000180,customer000180@example.com,9853261270,Chennai,Tamil Nadu,India,HIGH,VERIFIED
+CUST000181,Customer 000181,customer000181@example.com,9840725714,Mumbai,Maharashtra,India,HIGH,VERIFIED
+CUST000182,Customer 000182,customer000182@example.com,9888802305,Delhi,Delhi,India,LOW,VERIFIED
+CUST000183,Customer 000183,customer000183@example.com,9846173157,Chennai,Tamil Nadu,India,HIGH,PENDING
+CUST000184,Customer 000184,customer000184@example.com,9833513701,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000185,Customer 000185,customer000185@example.com,9847333543,Hyderabad,Telangana,India,LOW,VERIFIED
+CUST000186,Customer 000186,customer000186@example.com,9895199362,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000187,Customer 000187,customer000187@example.com,9856702542,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000188,Customer 000188,customer000188@example.com,9824039158,Chennai,Tamil Nadu,India,LOW,VERIFIED
+CUST000189,Customer 000189,customer000189@example.com,9876500726,Chennai,Tamil Nadu,India,MEDIUM,VERIFIED
+CUST000190,Customer 000190,customer000190@example.com,9883832717,Hyderabad,Telangana,India,LOW,VERIFIED
+CUST000191,Customer 000191,customer000191@example.com,9843876400,Bengaluru,Karnataka,India,MEDIUM,VERIFIED
+CUST000192,Customer 000192,customer000192@example.com,9864247457,Ahmedabad,Gujarat,India,HIGH,VERIFIED
+CUST000193,Customer 000193,customer000193@example.com,9898269682,Mumbai,Maharashtra,India,HIGH,VERIFIED
+CUST000194,Customer 000194,customer000194@example.com,9835176902,Mumbai,Maharashtra,India,HIGH,VERIFIED
+CUST000195,Customer 000195,customer000195@example.com,9876906611,Ahmedabad,Gujarat,India,HIGH,VERIFIED
+CUST000196,Customer 000196,customer000196@example.com,9837321124,Mumbai,Maharashtra,India,MEDIUM,VERIFIED
+CUST000197,Customer 000197,customer000197@example.com,9868802946,Bengaluru,Karnataka,India,HIGH,VERIFIED
+CUST000198,Customer 000198,customer000198@example.com,9894560158,Mumbai,Maharashtra,India,HIGH,VERIFIED
+CUST000199,Customer 000199,customer000199@example.com,9831257157,Chennai,Tamil Nadu,India,MEDIUM,VERIFIED
+CUST000200,Customer 000200,customer000200@example.com,9864759583,Delhi,Delhi,India,LOW,VERIFIED
+CUST000201,Customer 000201,customer000201@example.com,9825228493,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000202,Customer 000202,customer000202@example.com,9830665654,Chennai,Tamil Nadu,India,MEDIUM,VERIFIED
+CUST000203,Customer 000203,customer000203@example.com,9878299645,Bengaluru,Karnataka,India,HIGH,VERIFIED
+CUST000204,Customer 000204,customer000204@example.com,9874759996,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000205,Customer 000205,customer000205@example.com,9829413516,Delhi,Delhi,India,MEDIUM,VERIFIED
+CUST000206,Customer 000206,customer000206@example.com,9878214937,Delhi,Delhi,India,HIGH,VERIFIED
+CUST000207,Customer 000207,customer000207@example.com,9819369750,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000208,Customer 000208,customer000208@example.com,9865692629,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000209,Customer 000209,customer000209@example.com,9845859307,Delhi,Delhi,India,LOW,VERIFIED
+CUST000210,Customer 000210,customer000210@example.com,9888777447,Bengaluru,Karnataka,India,HIGH,VERIFIED
+CUST000211,Customer 000211,customer000211@example.com,9829944139,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000212,Customer 000212,customer000212@example.com,9854619335,Bengaluru,Karnataka,India,HIGH,VERIFIED
+CUST000213,Customer 000213,customer000213@example.com,9871115319,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000214,Customer 000214,customer000214@example.com,9842051937,Chennai,Tamil Nadu,India,HIGH,VERIFIED
+CUST000215,Customer 000215,customer000215@example.com,9865133300,Ahmedabad,Gujarat,India,LOW,VERIFIED
+CUST000216,Customer 000216,customer000216@example.com,9861167978,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000217,Customer 000217,customer000217@example.com,9897512508,Ahmedabad,Gujarat,India,LOW,VERIFIED
+CUST000218,Customer 000218,customer000218@example.com,9826944487,Mumbai,Maharashtra,India,HIGH,VERIFIED
+CUST000219,Customer 000219,customer000219@example.com,9823470708,Bengaluru,Karnataka,India,MEDIUM,PENDING
+CUST000220,Customer 000220,customer000220@example.com,9812059919,Hyderabad,Telangana,India,HIGH,VERIFIED
+CUST000221,Customer 000221,customer000221@example.com,9897883261,Ahmedabad,Gujarat,India,LOW,PENDING
+CUST000222,Customer 000222,customer000222@example.com,9845570755,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000223,Customer 000223,customer000223@example.com,9897219599,Hyderabad,Telangana,India,LOW,VERIFIED
+CUST000224,Customer 000224,customer000224@example.com,9881621574,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000225,Customer 000225,customer000225@example.com,9875491202,Chennai,Tamil Nadu,India,HIGH,PENDING
+CUST000226,Customer 000226,customer000226@example.com,9841510328,Mumbai,Maharashtra,India,HIGH,VERIFIED
+CUST000227,Customer 000227,customer000227@example.com,9840532691,Bengaluru,Karnataka,India,HIGH,PENDING
+CUST000228,Customer 000228,customer000228@example.com,9895060193,Mumbai,Maharashtra,India,HIGH,VERIFIED
+CUST000229,Customer 000229,customer000229@example.com,9832329103,Hyderabad,Telangana,India,HIGH,VERIFIED
+CUST000230,Customer 000230,customer000230@example.com,9816172803,Mumbai,Maharashtra,India,MEDIUM,VERIFIED
+CUST000231,Customer 000231,customer000231@example.com,9858112135,Bengaluru,Karnataka,India,MEDIUM,VERIFIED
+CUST000232,Customer 000232,customer000232@example.com,9881291936,Pune,Maharashtra,India,MEDIUM,VERIFIED
+CUST000233,Customer 000233,customer000233@example.com,9834166826,Ahmedabad,Gujarat,India,LOW,VERIFIED
+CUST000234,Customer 000234,customer000234@example.com,9861344226,Delhi,Delhi,India,HIGH,VERIFIED
+CUST000235,Customer 000235,customer000235@example.com,9888270025,Hyderabad,Telangana,India,LOW,VERIFIED
+CUST000236,Customer 000236,customer000236@example.com,9844088261,Chennai,Tamil Nadu,India,MEDIUM,VERIFIED
+CUST000237,Customer 000237,customer000237@example.com,9872445234,Mumbai,Maharashtra,India,MEDIUM,VERIFIED
+CUST000238,Customer 000238,customer000238@example.com,9819913576,Pune,Maharashtra,India,MEDIUM,VERIFIED
+CUST000239,Customer 000239,customer000239@example.com,9850151803,Delhi,Delhi,India,HIGH,VERIFIED
+CUST000240,Customer 000240,customer000240@example.com,9843567615,Chennai,Tamil Nadu,India,MEDIUM,VERIFIED
+CUST000241,Customer 000241,customer000241@example.com,9861632653,Pune,Maharashtra,India,MEDIUM,VERIFIED
+CUST000242,Customer 000242,customer000242@example.com,9886762164,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000243,Customer 000243,customer000243@example.com,9849625201,Chennai,Tamil Nadu,India,LOW,VERIFIED
+CUST000244,Customer 000244,customer000244@example.com,9863124147,Chennai,Tamil Nadu,India,MEDIUM,PENDING
+CUST000245,Customer 000245,customer000245@example.com,9816582607,Ahmedabad,Gujarat,India,HIGH,VERIFIED
+CUST000246,Customer 000246,customer000246@example.com,9848412328,Ahmedabad,Gujarat,India,LOW,VERIFIED
+CUST000247,Customer 000247,customer000247@example.com,9839394291,Bengaluru,Karnataka,India,HIGH,VERIFIED
+CUST000248,Customer 000248,customer000248@example.com,9898473848,Bengaluru,Karnataka,India,HIGH,VERIFIED
+CUST000249,Customer 000249,customer000249@example.com,9823041121,Chennai,Tamil Nadu,India,HIGH,VERIFIED
+CUST000250,Customer 000250,customer000250@example.com,9869166287,Bengaluru,Karnataka,India,LOW,VERIFIED
+CUST000251,Customer 000251,customer000251@example.com,9827637794,Chennai,Tamil Nadu,India,LOW,VERIFIED
+CUST000252,Customer 000252,customer000252@example.com,9865767881,Bengaluru,Karnataka,India,LOW,VERIFIED
+CUST000253,Customer 000253,customer000253@example.com,9882398083,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000254,Customer 000254,customer000254@example.com,9832084778,Bengaluru,Karnataka,India,MEDIUM,VERIFIED
+CUST000255,Customer 000255,customer000255@example.com,9849613214,Hyderabad,Telangana,India,HIGH,VERIFIED
+CUST000256,Customer 000256,customer000256@example.com,9825457816,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000257,Customer 000257,customer000257@example.com,9840281491,Pune,Maharashtra,India,HIGH,VERIFIED
+CUST000258,Customer 000258,customer000258@example.com,9884801233,Hyderabad,Telangana,India,MEDIUM,PENDING
+CUST000259,Customer 000259,customer000259@example.com,9811868130,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000260,Customer 000260,customer000260@example.com,9859470729,Hyderabad,Telangana,India,HIGH,VERIFIED
+CUST000261,Customer 000261,customer000261@example.com,9888458327,Bengaluru,Karnataka,India,MEDIUM,VERIFIED
+CUST000262,Customer 000262,customer000262@example.com,9824541967,Bengaluru,Karnataka,India,HIGH,VERIFIED
+CUST000263,Customer 000263,customer000263@example.com,9893154172,Mumbai,Maharashtra,India,HIGH,VERIFIED
+CUST000264,Customer 000264,customer000264@example.com,9839711402,Delhi,Delhi,India,HIGH,PENDING
+CUST000265,Customer 000265,customer000265@example.com,9872312933,Ahmedabad,Gujarat,India,HIGH,VERIFIED
+CUST000266,Customer 000266,customer000266@example.com,9825659979,Hyderabad,Telangana,India,LOW,PENDING
+CUST000267,Customer 000267,customer000267@example.com,9850851122,Mumbai,Maharashtra,India,MEDIUM,VERIFIED
+CUST000268,Customer 000268,customer000268@example.com,9882148284,Pune,Maharashtra,India,LOW,VERIFIED
+CUST000269,Customer 000269,customer000269@example.com,9899991136,Bengaluru,Karnataka,India,HIGH,VERIFIED
+CUST000270,Customer 000270,customer000270@example.com,9866254240,Delhi,Delhi,India,HIGH,VERIFIED
+CUST000271,Customer 000271,customer000271@example.com,9865684858,Pune,Maharashtra,India,HIGH,PENDING
+CUST000272,Customer 000272,customer000272@example.com,9892631441,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000273,Customer 000273,customer000273@example.com,9814391105,Bengaluru,Karnataka,India,HIGH,VERIFIED
+CUST000274,Customer 000274,customer000274@example.com,9869686067,Hyderabad,Telangana,India,LOW,VERIFIED
+CUST000275,Customer 000275,customer000275@example.com,9859302863,Mumbai,Maharashtra,India,HIGH,VERIFIED
+CUST000276,Customer 000276,customer000276@example.com,9858140388,Chennai,Tamil Nadu,India,LOW,VERIFIED
+CUST000277,Customer 000277,customer000277@example.com,9826395999,Pune,Maharashtra,India,MEDIUM,PENDING
+CUST000278,Customer 000278,customer000278@example.com,9896128115,Pune,Maharashtra,India,HIGH,VERIFIED
+CUST000279,Customer 000279,customer000279@example.com,9816788532,Mumbai,Maharashtra,India,MEDIUM,VERIFIED
+CUST000280,Customer 000280,customer000280@example.com,9885776373,Pune,Maharashtra,India,LOW,PENDING
+CUST000281,Customer 000281,customer000281@example.com,9884384510,Ahmedabad,Gujarat,India,LOW,VERIFIED
+CUST000282,Customer 000282,customer000282@example.com,9841272553,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000283,Customer 000283,customer000283@example.com,9889991301,Ahmedabad,Gujarat,India,LOW,VERIFIED
+CUST000284,Customer 000284,customer000284@example.com,9827447248,Pune,Maharashtra,India,HIGH,VERIFIED
+CUST000285,Customer 000285,customer000285@example.com,9824754064,Pune,Maharashtra,India,HIGH,VERIFIED
+CUST000286,Customer 000286,customer000286@example.com,9811994519,Pune,Maharashtra,India,MEDIUM,VERIFIED
+CUST000287,Customer 000287,customer000287@example.com,9889034501,Pune,Maharashtra,India,MEDIUM,PENDING
+CUST000288,Customer 000288,customer000288@example.com,9817032877,Bengaluru,Karnataka,India,LOW,VERIFIED
+CUST000289,Customer 000289,customer000289@example.com,9825253751,Delhi,Delhi,India,HIGH,PENDING
+CUST000290,Customer 000290,customer000290@example.com,9858592048,Hyderabad,Telangana,India,HIGH,VERIFIED
+CUST000291,Customer 000291,customer000291@example.com,9877624084,Hyderabad,Telangana,India,LOW,VERIFIED
+CUST000292,Customer 000292,customer000292@example.com,9898436473,Mumbai,Maharashtra,India,HIGH,VERIFIED
+CUST000293,Customer 000293,customer000293@example.com,9814180968,Chennai,Tamil Nadu,India,LOW,VERIFIED
+CUST000294,Customer 000294,customer000294@example.com,9863904155,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000295,Customer 000295,customer000295@example.com,9869533928,Hyderabad,Telangana,India,LOW,VERIFIED
+CUST000296,Customer 000296,customer000296@example.com,9891644298,Bengaluru,Karnataka,India,LOW,PENDING
+CUST000297,Customer 000297,customer000297@example.com,9893794475,Bengaluru,Karnataka,India,HIGH,VERIFIED
+CUST000298,Customer 000298,customer000298@example.com,9853645651,Chennai,Tamil Nadu,India,MEDIUM,VERIFIED
+CUST000299,Customer 000299,customer000299@example.com,9849580505,Delhi,Delhi,India,MEDIUM,VERIFIED
+CUST000300,Customer 000300,customer000300@example.com,9823311507,Hyderabad,Telangana,India,HIGH,VERIFIED
+CUST000301,Customer 000301,customer000301@example.com,9897364555,Chennai,Tamil Nadu,India,HIGH,VERIFIED
+CUST000302,Customer 000302,customer000302@example.com,9867723010,Pune,Maharashtra,India,MEDIUM,VERIFIED
+CUST000303,Customer 000303,customer000303@example.com,9855490631,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000304,Customer 000304,customer000304@example.com,9822762205,Chennai,Tamil Nadu,India,MEDIUM,VERIFIED
+CUST000305,Customer 000305,customer000305@example.com,9844210729,Chennai,Tamil Nadu,India,MEDIUM,VERIFIED
+CUST000306,Customer 000306,customer000306@example.com,9873655158,Chennai,Tamil Nadu,India,LOW,PENDING
+CUST000307,Customer 000307,customer000307@example.com,9822513132,Mumbai,Maharashtra,India,MEDIUM,PENDING
+CUST000308,Customer 000308,customer000308@example.com,9860015814,Chennai,Tamil Nadu,India,LOW,VERIFIED
+CUST000309,Customer 000309,customer000309@example.com,9885374852,Delhi,Delhi,India,HIGH,VERIFIED
+CUST000310,Customer 000310,customer000310@example.com,9865137801,Mumbai,Maharashtra,India,MEDIUM,VERIFIED
+CUST000311,Customer 000311,customer000311@example.com,9866765623,Ahmedabad,Gujarat,India,HIGH,PENDING
+CUST000312,Customer 000312,customer000312@example.com,9890585678,Bengaluru,Karnataka,India,MEDIUM,VERIFIED
+CUST000313,Customer 000313,customer000313@example.com,9878103759,Delhi,Delhi,India,LOW,VERIFIED
+CUST000314,Customer 000314,customer000314@example.com,9840097636,Hyderabad,Telangana,India,LOW,VERIFIED
+CUST000315,Customer 000315,customer000315@example.com,9859333209,Delhi,Delhi,India,LOW,VERIFIED
+CUST000316,Customer 000316,customer000316@example.com,9840354559,Delhi,Delhi,India,MEDIUM,VERIFIED
+CUST000317,Customer 000317,customer000317@example.com,9893446356,Ahmedabad,Gujarat,India,HIGH,VERIFIED
+CUST000318,Customer 000318,customer000318@example.com,9813523729,Delhi,Delhi,India,HIGH,VERIFIED
+CUST000319,Customer 000319,customer000319@example.com,9845896226,Ahmedabad,Gujarat,India,LOW,VERIFIED
+CUST000320,Customer 000320,customer000320@example.com,9851471222,Chennai,Tamil Nadu,India,MEDIUM,VERIFIED
+CUST000321,Customer 000321,customer000321@example.com,9829226889,Pune,Maharashtra,India,HIGH,VERIFIED
+CUST000322,Customer 000322,customer000322@example.com,9829042093,Mumbai,Maharashtra,India,HIGH,VERIFIED
+CUST000323,Customer 000323,customer000323@example.com,9822315507,Mumbai,Maharashtra,India,HIGH,VERIFIED
+CUST000324,Customer 000324,customer000324@example.com,9866348963,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000325,Customer 000325,customer000325@example.com,9851827259,Bengaluru,Karnataka,India,HIGH,VERIFIED
+CUST000326,Customer 000326,customer000326@example.com,9890023800,Delhi,Delhi,India,LOW,VERIFIED
+CUST000327,Customer 000327,customer000327@example.com,9831127198,Pune,Maharashtra,India,HIGH,PENDING
+CUST000328,Customer 000328,customer000328@example.com,9846521025,Mumbai,Maharashtra,India,MEDIUM,VERIFIED
+CUST000329,Customer 000329,customer000329@example.com,9891480362,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000330,Customer 000330,customer000330@example.com,9878765957,Pune,Maharashtra,India,LOW,VERIFIED
+CUST000331,Customer 000331,customer000331@example.com,9848016697,Mumbai,Maharashtra,India,HIGH,VERIFIED
+CUST000332,Customer 000332,customer000332@example.com,9880723898,Hyderabad,Telangana,India,HIGH,VERIFIED
+CUST000333,Customer 000333,customer000333@example.com,9863051354,Pune,Maharashtra,India,HIGH,PENDING
+CUST000334,Customer 000334,customer000334@example.com,9850455821,Pune,Maharashtra,India,LOW,VERIFIED
+CUST000335,Customer 000335,customer000335@example.com,9844295247,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000336,Customer 000336,customer000336@example.com,9876757928,Mumbai,Maharashtra,India,HIGH,VERIFIED
+CUST000337,Customer 000337,customer000337@example.com,9861030579,Pune,Maharashtra,India,HIGH,VERIFIED
+CUST000338,Customer 000338,customer000338@example.com,9884990607,Delhi,Delhi,India,HIGH,VERIFIED
+CUST000339,Customer 000339,customer000339@example.com,9863293990,Mumbai,Maharashtra,India,HIGH,PENDING
+CUST000340,Customer 000340,customer000340@example.com,9871707170,Mumbai,Maharashtra,India,LOW,VERIFIED
+CUST000341,Customer 000341,customer000341@example.com,9867617561,Delhi,Delhi,India,HIGH,VERIFIED
+CUST000342,Customer 000342,customer000342@example.com,9866061934,Chennai,Tamil Nadu,India,MEDIUM,VERIFIED
+CUST000343,Customer 000343,customer000343@example.com,9853589647,Mumbai,Maharashtra,India,LOW,VERIFIED
+CUST000344,Customer 000344,customer000344@example.com,9871753160,Delhi,Delhi,India,HIGH,VERIFIED
+CUST000345,Customer 000345,customer000345@example.com,9868614462,Mumbai,Maharashtra,India,LOW,VERIFIED
+CUST000346,Customer 000346,customer000346@example.com,9863747464,Delhi,Delhi,India,HIGH,PENDING
+CUST000347,Customer 000347,customer000347@example.com,9851644346,Ahmedabad,Gujarat,India,HIGH,VERIFIED
+CUST000348,Customer 000348,customer000348@example.com,9832566390,Bengaluru,Karnataka,India,LOW,VERIFIED
+CUST000349,Customer 000349,customer000349@example.com,9881216573,Mumbai,Maharashtra,India,HIGH,VERIFIED
+CUST000350,Customer 000350,customer000350@example.com,9856892354,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000351,Customer 000351,customer000351@example.com,9896629889,Ahmedabad,Gujarat,India,LOW,VERIFIED
+CUST000352,Customer 000352,customer000352@example.com,9844355473,Pune,Maharashtra,India,LOW,VERIFIED
+CUST000353,Customer 000353,customer000353@example.com,9897980930,Pune,Maharashtra,India,LOW,VERIFIED
+CUST000354,Customer 000354,customer000354@example.com,9894281857,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000355,Customer 000355,customer000355@example.com,9887774890,Delhi,Delhi,India,MEDIUM,VERIFIED
+CUST000356,Customer 000356,customer000356@example.com,9896300902,Delhi,Delhi,India,HIGH,VERIFIED
+CUST000357,Customer 000357,customer000357@example.com,9894183695,Bengaluru,Karnataka,India,MEDIUM,VERIFIED
+CUST000358,Customer 000358,customer000358@example.com,9872937522,Mumbai,Maharashtra,India,MEDIUM,VERIFIED
+CUST000359,Customer 000359,customer000359@example.com,9846866075,Ahmedabad,Gujarat,India,HIGH,PENDING
+CUST000360,Customer 000360,customer000360@example.com,9819957701,Delhi,Delhi,India,MEDIUM,VERIFIED
+CUST000361,Customer 000361,customer000361@example.com,9817635653,Mumbai,Maharashtra,India,MEDIUM,VERIFIED
+CUST000362,Customer 000362,customer000362@example.com,9896525668,Mumbai,Maharashtra,India,LOW,VERIFIED
+CUST000363,Customer 000363,customer000363@example.com,9861604364,Delhi,Delhi,India,MEDIUM,VERIFIED
+CUST000364,Customer 000364,customer000364@example.com,9815505975,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000365,Customer 000365,customer000365@example.com,9897488142,Delhi,Delhi,India,LOW,VERIFIED
+CUST000366,Customer 000366,customer000366@example.com,9877292380,Hyderabad,Telangana,India,LOW,VERIFIED
+CUST000367,Customer 000367,customer000367@example.com,9823891786,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000368,Customer 000368,customer000368@example.com,9877719420,Mumbai,Maharashtra,India,HIGH,VERIFIED
+CUST000369,Customer 000369,customer000369@example.com,9868754920,Pune,Maharashtra,India,MEDIUM,VERIFIED
+CUST000370,Customer 000370,customer000370@example.com,9831306555,Delhi,Delhi,India,MEDIUM,VERIFIED
+CUST000371,Customer 000371,customer000371@example.com,9861998170,Bengaluru,Karnataka,India,MEDIUM,VERIFIED
+CUST000372,Customer 000372,customer000372@example.com,9890246882,Chennai,Tamil Nadu,India,LOW,VERIFIED
+CUST000373,Customer 000373,customer000373@example.com,9854915875,Chennai,Tamil Nadu,India,LOW,VERIFIED
+CUST000374,Customer 000374,customer000374@example.com,9861883769,Delhi,Delhi,India,MEDIUM,VERIFIED
+CUST000375,Customer 000375,customer000375@example.com,9898122539,Ahmedabad,Gujarat,India,HIGH,VERIFIED
+CUST000376,Customer 000376,customer000376@example.com,9820939011,Bengaluru,Karnataka,India,HIGH,VERIFIED
+CUST000377,Customer 000377,customer000377@example.com,9851638598,Bengaluru,Karnataka,India,HIGH,VERIFIED
+CUST000378,Customer 000378,customer000378@example.com,9827307598,Hyderabad,Telangana,India,HIGH,VERIFIED
+CUST000379,Customer 000379,customer000379@example.com,9851551377,Mumbai,Maharashtra,India,HIGH,VERIFIED
+CUST000380,Customer 000380,customer000380@example.com,9854087376,Ahmedabad,Gujarat,India,LOW,VERIFIED
+CUST000381,Customer 000381,customer000381@example.com,9880651318,Ahmedabad,Gujarat,India,LOW,VERIFIED
+CUST000382,Customer 000382,customer000382@example.com,9878248169,Hyderabad,Telangana,India,MEDIUM,PENDING
+CUST000383,Customer 000383,customer000383@example.com,9834194479,Bengaluru,Karnataka,India,LOW,VERIFIED
+CUST000384,Customer 000384,customer000384@example.com,9875266178,Ahmedabad,Gujarat,India,LOW,VERIFIED
+CUST000385,Customer 000385,customer000385@example.com,9830796389,Pune,Maharashtra,India,LOW,VERIFIED
+CUST000386,Customer 000386,customer000386@example.com,9823574883,Ahmedabad,Gujarat,India,HIGH,VERIFIED
+CUST000387,Customer 000387,customer000387@example.com,9880669879,Ahmedabad,Gujarat,India,LOW,VERIFIED
+CUST000388,Customer 000388,customer000388@example.com,9892950779,Ahmedabad,Gujarat,India,LOW,VERIFIED
+CUST000389,Customer 000389,customer000389@example.com,9831776452,Pune,Maharashtra,India,LOW,VERIFIED
+CUST000390,Customer 000390,customer000390@example.com,9893851247,Ahmedabad,Gujarat,India,LOW,VERIFIED
+CUST000391,Customer 000391,customer000391@example.com,9865144509,Mumbai,Maharashtra,India,MEDIUM,VERIFIED
+CUST000392,Customer 000392,customer000392@example.com,9869619341,Pune,Maharashtra,India,HIGH,VERIFIED
+CUST000393,Customer 000393,customer000393@example.com,9870254091,Chennai,Tamil Nadu,India,LOW,VERIFIED
+CUST000394,Customer 000394,customer000394@example.com,9872950208,Bengaluru,Karnataka,India,LOW,VERIFIED
+CUST000395,Customer 000395,customer000395@example.com,9869135982,Delhi,Delhi,India,MEDIUM,VERIFIED
+CUST000396,Customer 000396,customer000396@example.com,9861254050,Ahmedabad,Gujarat,India,HIGH,VERIFIED
+CUST000397,Customer 000397,customer000397@example.com,9836802975,Pune,Maharashtra,India,HIGH,VERIFIED
+CUST000398,Customer 000398,customer000398@example.com,9817003454,Bengaluru,Karnataka,India,HIGH,VERIFIED
+CUST000399,Customer 000399,customer000399@example.com,9884429198,Bengaluru,Karnataka,India,LOW,VERIFIED
+CUST000400,Customer 000400,customer000400@example.com,9826733967,Delhi,Delhi,India,MEDIUM,PENDING
+CUST000401,Customer 000401,customer000401@example.com,9846613428,Pune,Maharashtra,India,MEDIUM,VERIFIED
+CUST000402,Customer 000402,customer000402@example.com,9868716573,Pune,Maharashtra,India,LOW,VERIFIED
+CUST000403,Customer 000403,customer000403@example.com,9870549373,Pune,Maharashtra,India,MEDIUM,VERIFIED
+CUST000404,Customer 000404,customer000404@example.com,9817148018,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000405,Customer 000405,customer000405@example.com,9861830338,Pune,Maharashtra,India,LOW,VERIFIED
+CUST000406,Customer 000406,customer000406@example.com,9852773159,Mumbai,Maharashtra,India,LOW,VERIFIED
+CUST000407,Customer 000407,customer000407@example.com,9855001909,Chennai,Tamil Nadu,India,LOW,VERIFIED
+CUST000408,Customer 000408,customer000408@example.com,9873411827,Bengaluru,Karnataka,India,HIGH,VERIFIED
+CUST000409,Customer 000409,customer000409@example.com,9872962895,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000410,Customer 000410,customer000410@example.com,9812550658,Mumbai,Maharashtra,India,MEDIUM,VERIFIED
+CUST000411,Customer 000411,customer000411@example.com,9883659258,Pune,Maharashtra,India,HIGH,VERIFIED
+CUST000412,Customer 000412,customer000412@example.com,9824923247,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000413,Customer 000413,customer000413@example.com,9816408822,Mumbai,Maharashtra,India,LOW,VERIFIED
+CUST000414,Customer 000414,customer000414@example.com,9893592219,Ahmedabad,Gujarat,India,MEDIUM,PENDING
+CUST000415,Customer 000415,customer000415@example.com,9877085942,Ahmedabad,Gujarat,India,HIGH,VERIFIED
+CUST000416,Customer 000416,customer000416@example.com,9879172559,Chennai,Tamil Nadu,India,HIGH,VERIFIED
+CUST000417,Customer 000417,customer000417@example.com,9849093864,Pune,Maharashtra,India,MEDIUM,PENDING
+CUST000418,Customer 000418,customer000418@example.com,9842287985,Bengaluru,Karnataka,India,HIGH,VERIFIED
+CUST000419,Customer 000419,customer000419@example.com,9899686286,Chennai,Tamil Nadu,India,LOW,VERIFIED
+CUST000420,Customer 000420,customer000420@example.com,9819083764,Bengaluru,Karnataka,India,HIGH,VERIFIED
+CUST000421,Customer 000421,customer000421@example.com,9878131950,Ahmedabad,Gujarat,India,HIGH,PENDING
+CUST000422,Customer 000422,customer000422@example.com,9873100462,Ahmedabad,Gujarat,India,LOW,VERIFIED
+CUST000423,Customer 000423,customer000423@example.com,9844044361,Bengaluru,Karnataka,India,HIGH,PENDING
+CUST000424,Customer 000424,customer000424@example.com,9819067690,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000425,Customer 000425,customer000425@example.com,9894323222,Chennai,Tamil Nadu,India,LOW,VERIFIED
+CUST000426,Customer 000426,customer000426@example.com,9854629892,Chennai,Tamil Nadu,India,LOW,PENDING
+CUST000427,Customer 000427,customer000427@example.com,9855439043,Delhi,Delhi,India,HIGH,VERIFIED
+CUST000428,Customer 000428,customer000428@example.com,9872360629,Ahmedabad,Gujarat,India,HIGH,VERIFIED
+CUST000429,Customer 000429,customer000429@example.com,9828099607,Pune,Maharashtra,India,LOW,VERIFIED
+CUST000430,Customer 000430,customer000430@example.com,9814963880,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000431,Customer 000431,customer000431@example.com,9836772387,Ahmedabad,Gujarat,India,LOW,VERIFIED
+CUST000432,Customer 000432,customer000432@example.com,9879173614,Bengaluru,Karnataka,India,MEDIUM,VERIFIED
+CUST000433,Customer 000433,customer000433@example.com,9873538641,Delhi,Delhi,India,MEDIUM,PENDING
+CUST000434,Customer 000434,customer000434@example.com,9835649468,Chennai,Tamil Nadu,India,MEDIUM,VERIFIED
+CUST000435,Customer 000435,customer000435@example.com,9816416148,Ahmedabad,Gujarat,India,HIGH,VERIFIED
+CUST000436,Customer 000436,customer000436@example.com,9859394697,Mumbai,Maharashtra,India,MEDIUM,VERIFIED
+CUST000437,Customer 000437,customer000437@example.com,9869020451,Chennai,Tamil Nadu,India,MEDIUM,VERIFIED
+CUST000438,Customer 000438,customer000438@example.com,9876599269,Pune,Maharashtra,India,HIGH,VERIFIED
+CUST000439,Customer 000439,customer000439@example.com,9879696025,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000440,Customer 000440,customer000440@example.com,9866975380,Chennai,Tamil Nadu,India,LOW,VERIFIED
+CUST000441,Customer 000441,customer000441@example.com,9834220459,Ahmedabad,Gujarat,India,HIGH,VERIFIED
+CUST000442,Customer 000442,customer000442@example.com,9820746667,Mumbai,Maharashtra,India,MEDIUM,VERIFIED
+CUST000443,Customer 000443,customer000443@example.com,9869849800,Bengaluru,Karnataka,India,HIGH,VERIFIED
+CUST000444,Customer 000444,customer000444@example.com,9869580374,Pune,Maharashtra,India,MEDIUM,VERIFIED
+CUST000445,Customer 000445,customer000445@example.com,9857319709,Chennai,Tamil Nadu,India,HIGH,VERIFIED
+CUST000446,Customer 000446,customer000446@example.com,9895828117,Bengaluru,Karnataka,India,LOW,PENDING
+CUST000447,Customer 000447,customer000447@example.com,9864520614,Chennai,Tamil Nadu,India,MEDIUM,VERIFIED
+CUST000448,Customer 000448,customer000448@example.com,9831473054,Chennai,Tamil Nadu,India,LOW,VERIFIED
+CUST000449,Customer 000449,customer000449@example.com,9868810561,Delhi,Delhi,India,LOW,VERIFIED
+CUST000450,Customer 000450,customer000450@example.com,9896592295,Pune,Maharashtra,India,MEDIUM,VERIFIED
+CUST000451,Customer 000451,customer000451@example.com,9814346684,Delhi,Delhi,India,HIGH,VERIFIED
+CUST000452,Customer 000452,customer000452@example.com,9859790013,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000453,Customer 000453,customer000453@example.com,9887030477,Mumbai,Maharashtra,India,LOW,VERIFIED
+CUST000454,Customer 000454,customer000454@example.com,9852196099,Hyderabad,Telangana,India,HIGH,VERIFIED
+CUST000455,Customer 000455,customer000455@example.com,9813478029,Mumbai,Maharashtra,India,HIGH,VERIFIED
+CUST000456,Customer 000456,customer000456@example.com,9861940566,Delhi,Delhi,India,HIGH,VERIFIED
+CUST000457,Customer 000457,customer000457@example.com,9844935501,Ahmedabad,Gujarat,India,HIGH,VERIFIED
+CUST000458,Customer 000458,customer000458@example.com,9848329479,Delhi,Delhi,India,HIGH,VERIFIED
+CUST000459,Customer 000459,customer000459@example.com,9836867482,Hyderabad,Telangana,India,LOW,VERIFIED
+CUST000460,Customer 000460,customer000460@example.com,9870672142,Mumbai,Maharashtra,India,LOW,VERIFIED
+CUST000461,Customer 000461,customer000461@example.com,9821783073,Hyderabad,Telangana,India,HIGH,VERIFIED
+CUST000462,Customer 000462,customer000462@example.com,9899635939,Bengaluru,Karnataka,India,MEDIUM,VERIFIED
+CUST000463,Customer 000463,customer000463@example.com,9882769008,Delhi,Delhi,India,MEDIUM,VERIFIED
+CUST000464,Customer 000464,customer000464@example.com,9831139996,Ahmedabad,Gujarat,India,HIGH,VERIFIED
+CUST000465,Customer 000465,customer000465@example.com,9895590648,Chennai,Tamil Nadu,India,LOW,VERIFIED
+CUST000466,Customer 000466,customer000466@example.com,9840097200,Delhi,Delhi,India,LOW,VERIFIED
+CUST000467,Customer 000467,customer000467@example.com,9828639738,Ahmedabad,Gujarat,India,LOW,VERIFIED
+CUST000468,Customer 000468,customer000468@example.com,9858438711,Mumbai,Maharashtra,India,HIGH,VERIFIED
+CUST000469,Customer 000469,customer000469@example.com,9884040798,Hyderabad,Telangana,India,LOW,VERIFIED
+CUST000470,Customer 000470,customer000470@example.com,9818824561,Mumbai,Maharashtra,India,MEDIUM,VERIFIED
+CUST000471,Customer 000471,customer000471@example.com,9874245343,Chennai,Tamil Nadu,India,HIGH,VERIFIED
+CUST000472,Customer 000472,customer000472@example.com,9887161840,Hyderabad,Telangana,India,LOW,VERIFIED
+CUST000473,Customer 000473,customer000473@example.com,9896213226,Bengaluru,Karnataka,India,LOW,VERIFIED
+CUST000474,Customer 000474,customer000474@example.com,9879438885,Chennai,Tamil Nadu,India,MEDIUM,VERIFIED
+CUST000475,Customer 000475,customer000475@example.com,9883994695,Ahmedabad,Gujarat,India,HIGH,VERIFIED
+CUST000476,Customer 000476,customer000476@example.com,9827318510,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000477,Customer 000477,customer000477@example.com,9817437386,Ahmedabad,Gujarat,India,LOW,VERIFIED
+CUST000478,Customer 000478,customer000478@example.com,9832099899,Bengaluru,Karnataka,India,LOW,VERIFIED
+CUST000479,Customer 000479,customer000479@example.com,9840262109,Chennai,Tamil Nadu,India,MEDIUM,VERIFIED
+CUST000480,Customer 000480,customer000480@example.com,9848124318,Delhi,Delhi,India,LOW,VERIFIED
+CUST000481,Customer 000481,customer000481@example.com,9883932683,Chennai,Tamil Nadu,India,MEDIUM,VERIFIED
+CUST000482,Customer 000482,customer000482@example.com,9892467167,Bengaluru,Karnataka,India,HIGH,PENDING
+CUST000483,Customer 000483,customer000483@example.com,9832633927,Chennai,Tamil Nadu,India,HIGH,VERIFIED
+CUST000484,Customer 000484,customer000484@example.com,9832978158,Pune,Maharashtra,India,HIGH,VERIFIED
+CUST000485,Customer 000485,customer000485@example.com,9855314533,Delhi,Delhi,India,HIGH,PENDING
+CUST000486,Customer 000486,customer000486@example.com,9813808225,Ahmedabad,Gujarat,India,LOW,PENDING
+CUST000487,Customer 000487,customer000487@example.com,9887412924,Chennai,Tamil Nadu,India,MEDIUM,VERIFIED
+CUST000488,Customer 000488,customer000488@example.com,9886790955,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000489,Customer 000489,customer000489@example.com,9876845536,Mumbai,Maharashtra,India,HIGH,VERIFIED
+CUST000490,Customer 000490,customer000490@example.com,9850546385,Chennai,Tamil Nadu,India,MEDIUM,VERIFIED
+CUST000491,Customer 000491,customer000491@example.com,9864504816,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000492,Customer 000492,customer000492@example.com,9818041391,Chennai,Tamil Nadu,India,LOW,VERIFIED
+CUST000493,Customer 000493,customer000493@example.com,9872336371,Hyderabad,Telangana,India,LOW,VERIFIED
+CUST000494,Customer 000494,customer000494@example.com,9851954112,Pune,Maharashtra,India,HIGH,VERIFIED
+CUST000495,Customer 000495,customer000495@example.com,9856354851,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED
+CUST000496,Customer 000496,customer000496@example.com,9879119463,Bengaluru,Karnataka,India,HIGH,VERIFIED
+CUST000497,Customer 000497,customer000497@example.com,9872608888,Pune,Maharashtra,India,LOW,VERIFIED
+CUST000498,Customer 000498,customer000498@example.com,9828908276,Pune,Maharashtra,India,LOW,PENDING
+CUST000499,Customer 000499,customer000499@example.com,9892594562,Hyderabad,Telangana,India,MEDIUM,VERIFIED
+CUST000500,Customer 000500,customer000500@example.com,9831434525,Ahmedabad,Gujarat,India,MEDIUM,VERIFIED

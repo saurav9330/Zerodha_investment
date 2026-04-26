@@ -1,0 +1,638 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  AWS-native retail brokerage data engineering pipeline using S3, Glue,
+  Step Functions, EventBridge Scheduler, SNS, and Amazon Redshift Serverless.
+
+Parameters:
+  ProjectName:
+    Type: String
+    Default: retail-brokerage-pipeline
+  EnvironmentName:
+    Type: String
+    Default: dev
+  ArtifactBucketName:
+    Type: String
+    Description: Bucket where Glue scripts, SQL, and state machine assets are uploaded.
+  RawDataBucketName:
+    Type: String
+    Description: Bucket for raw source-style datasets.
+  CuratedDataBucketName:
+    Type: String
+    Description: Bucket for curated outputs produced by Glue jobs.
+  NotificationEmail:
+    Type: String
+    Description: Email address subscribed to the SNS topic.
+  AllowedIngressCidr:
+    Type: String
+    Default: 0.0.0.0/0
+    Description: CIDR allowed to connect to the Redshift Serverless endpoint on port 5439.
+  DailyScheduleExpression:
+    Type: String
+    Default: cron(30 23 * * ? *)
+    Description: Daily schedule interpreted in Asia/Kolkata timezone. Default is 23:30 IST.
+  RedshiftAdminUsername:
+    Type: String
+    Default: adminuser
+  RedshiftDatabaseName:
+    Type: String
+    Default: brokerage
+  RedshiftAdminPassword:
+    Type: String
+    NoEcho: true
+    Default: ChangeMe123!
+
+Resources: #“Here are the things I want AWS to build for me.”
+  PipelineVpc: #This is the logical name of your resource.You can call it anything.
+    Type: AWS::EC2::VPC  #Here, you're creating a VPC
+    Properties:
+      CidrBlock: 10.20.0.0/16  # an ip has 32 bits. this /16(CIDR) divide this by 8. the quotoient means that many starting part of ip are fixed. here 16/8=2 which means first two i.e 10.20 are fixed. rest can change.it means give me a network that spans ALL Availability Zones in this region”
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+      Tags:
+        - Key: Name
+          Value: !Sub ${ProjectName}-${EnvironmentName}-vpc
+# Your VPC must use private ranges:
+
+# 10.0.0.0 – 10.255.255.255 (most common)
+# 172.16.0.0 – 172.31.255.255
+# 192.168.0.0 – 192.168.255.255
+
+# 👉 Your 10.20.0.0/16 is from the first range — perfectly valid.
+
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway #create an internet gateway
+
+  VpcGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment #This simply attaches an Internet Gateway to your VPC
+    Properties:
+      VpcId: !Ref PipelineVpc #“Use the VPC we created earlier”
+      InternetGatewayId: !Ref InternetGateway #“Use the Internet Gateway resource we defined in line 65”
+
+  PublicSubnetA:
+    Type: AWS::EC2::Subnet #This creates a subnet inside your VPC
+    Properties:
+      VpcId: !Ref PipelineVpc
+      CidrBlock: 10.20.1.0/24
+      AvailabilityZone: !Select [0, !GetAZs ""] #assign the availability zone
+      MapPublicIpOnLaunch: true #“Whenever I launch an EC2 instance here, automatically assign it a public IP address.”
+      Tags:
+        - Key: Name
+          Value: !Sub ${ProjectName}-${EnvironmentName}-subnet-a
+  
+  #you don’t have to define exactly two public subnets — but two is the minimum best practice for production.
+  #since we are learning so 1 is fine.
+
+  # PublicSubnetB:
+  #   Type: AWS::EC2::Subnet
+  #   Properties:
+  #     VpcId: !Ref PipelineVpc
+  #     CidrBlock: 10.20.2.0/24
+  #     AvailabilityZone: !Select [1, !GetAZs ""]
+  #     MapPublicIpOnLaunch: true
+  #     Tags:
+  #       - Key: Name
+  #         Value: !Sub ${ProjectName}-${EnvironmentName}-subnet-b
+
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable #This creates a Route Table inside your vpc
+    Properties:
+      VpcId: !Ref PipelineVpc
+
+  DefaultPublicRoute:
+    Type: AWS::EC2::Route #This creates a route (rule) inside your route table in the vpc
+    DependsOn: VpcGatewayAttachment
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0 #“Any IP address in the world”. your ec2 can access internet
+      GatewayId: !Ref InternetGateway
+
+  PublicSubnetARouteAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation #“Attach this subnet to this route table”
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      SubnetId: !Ref PublicSubnetA
+
+  # PublicSubnetBRouteAssociation:
+  #   Type: AWS::EC2::SubnetRouteTableAssociation
+  #   Properties:
+  #     RouteTableId: !Ref PublicRouteTable
+  #     SubnetId: !Ref PublicSubnetB
+
+  RedshiftSecurityGroup: #A Redshift security group is simply the firewall for your Redshift cluster.it means Who can connect to your cluster and on which port
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Redshift Serverless access for SQL clients and Glue.
+      VpcId: !Ref PipelineVpc
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 5439
+          ToPort: 5439
+          CidrIp: !Ref AllowedIngressCidr #use your IP address 
+      Tags:
+        - Key: Name
+          Value: !Sub ${ProjectName}-${EnvironmentName}-redshift-sg
+
+  ArtifactBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref ArtifactBucketName
+      VersioningConfiguration:
+        Status: Enabled
+
+  RawBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref RawDataBucketName
+      VersioningConfiguration:
+        Status: Enabled
+
+  CuratedBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref CuratedDataBucketName
+      VersioningConfiguration:
+        Status: Enabled
+
+  PipelineNotificationTopic:
+    Type: AWS::SNS::Topic #create topic
+    Properties:
+      TopicName: !Sub ${ProjectName}-${EnvironmentName}-notifications
+
+  PipelineNotificationSubscription:
+    Type: AWS::SNS::Subscription #subscribe to topic
+    Properties:
+      Protocol: email
+      Endpoint: !Ref NotificationEmail
+      TopicArn: !Ref PipelineNotificationTopic
+
+  GlueExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub ${ProjectName}-${EnvironmentName}-glue-role
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: glue.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole
+      Policies:
+        - PolicyName: glue-s3-redshift-inline
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: #glue can read,write,delete,list s3 files
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:DeleteObject
+                  - s3:ListBucket
+                Resource: #Where Glue has access
+                  - !GetAtt ArtifactBucket.Arn
+                  - !Sub ${ArtifactBucket.Arn}/*
+                  - !GetAtt RawBucket.Arn
+                  - !Sub ${RawBucket.Arn}/*
+                  - !GetAtt CuratedBucket.Arn
+                  - !Sub ${CuratedBucket.Arn}/*
+              - Effect: Allow
+                Action:
+                  - redshift-data:BatchExecuteStatement
+                  - redshift-data:ExecuteStatement
+                  - redshift-data:DescribeStatement
+                  - redshift-serverless:GetCredentials
+                Resource: "*"
+              - Effect: Allow
+                Action:
+                  - secretsmanager:GetSecretValue
+                Resource: !Sub arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:${ProjectName}-${EnvironmentName}-redshift-admin*
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: "*"
+
+  RedshiftCopyRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub ${ProjectName}-${EnvironmentName}-redshift-copy-role # !Sub means substitute.Because CloudFormation templates are static, but AWS resources need dynamic names.
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - redshift.amazonaws.com
+                - redshift-serverless.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: redshift-s3-read-inline
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:ListBucket
+                Resource: #“Which S3 buckets these permissions apply to”
+                  - !GetAtt RawBucket.Arn #This refers to the bucket itself(arn:aws:s3:::raw-bucket. used for ListBucket)
+                  - !Sub ${RawBucket.Arn}/*  #Means ALL files inside raw bucket (arn:aws:s3:::raw-bucket/*)
+                  - !GetAtt CuratedBucket.Arn
+                  - !Sub ${CuratedBucket.Arn}/*
+
+  StepFunctionsExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub ${ProjectName}-${EnvironmentName}-stepfunctions-role
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: states.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: stepfunctions-glue-sns-inline
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - glue:StartJobRun
+                  - glue:GetJobRun
+                  - glue:GetJobRuns
+                  - glue:BatchStopJobRun
+                Resource: "*"
+              - Effect: Allow
+                Action:
+                  - sns:Publish
+                Resource: !Ref PipelineNotificationTopic
+
+  SchedulerExecutionRole:
+    Type: AWS::IAM::Role #This creates an IAM Role in AWS.
+    Properties:
+      RoleName: !Sub ${ProjectName}-${EnvironmentName}-scheduler-role
+      AssumeRolePolicyDocument: #“Who is allowed to USE this role?”
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: scheduler.amazonaws.com #Only EventBridge Scheduler can use this role
+            Action: sts:AssumeRole #Scheduler is allowed to “take this role temporarily”
+      Policies:
+        - PolicyName: scheduler-start-stepfunctions-inline
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - states:StartExecution #Start AWS Step Function execution
+                Resource: !Ref BrokerageStateMachine #This limits permission to:ONLY this specific Step Function.Not all state machines — only this one
+
+  RedshiftNamespace:
+    Type: AWS::RedshiftServerless::Namespace
+    Properties:
+      NamespaceName: !Sub ${ProjectName}-${EnvironmentName}-ns
+      DbName: !Ref RedshiftDatabaseName
+      AdminUsername: !Ref RedshiftAdminUsername
+      AdminUserPassword: !Ref RedshiftAdminPassword
+      IamRoles:
+        - !GetAtt RedshiftCopyRole.Arn
+
+  RedshiftAdminSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: !Sub ${ProjectName}-${EnvironmentName}-redshift-admin
+      Description: Admin credential used by Glue Redshift load job through the Redshift Data API.
+      SecretString: !Sub |
+        {"username":"${RedshiftAdminUsername}","password":"${RedshiftAdminPassword}"}
+
+  RedshiftWorkgroup:
+    Type: AWS::RedshiftServerless::Workgroup
+    Properties:
+      WorkgroupName: !Sub ${ProjectName}-${EnvironmentName}-wg
+      NamespaceName: !Ref RedshiftNamespace
+      BaseCapacity: 32
+      EnhancedVpcRouting: false
+      PubliclyAccessible: true
+      Port: 5439
+      SecurityGroupIds:
+        - !Ref RedshiftSecurityGroup
+      SubnetIds:
+        - !Ref PublicSubnetA
+      #  - !Ref PublicSubnetB
+
+  MasterDataGlueJob:
+    Type: AWS::Glue::Job #You are creating a job in AWS Glue
+    Properties:
+      Name: !Sub ${ProjectName}-${EnvironmentName}-master-job
+      Role: !GetAtt GlueExecutionRole.Arn #get ARN of role created
+      Command:
+        Name: glueetl #“Run this job using the Glue ETL engine (Spark/PySpark)” we can give pythonshell(simple python script),gluestreaming(streaming jobs)
+        ScriptLocation: !Sub s3://${ArtifactBucketName}/src/glue/jobs/job_master_data.py
+        PythonVersion: "3"
+      DefaultArguments:
+        "--raw_root": !Sub s3://${RawDataBucketName}/raw
+        "--processed_root": !Sub s3://${CuratedDataBucketName}
+        "--job-language": "python"
+        "--enable-continuous-cloudwatch-log": "true"
+        "--enable-metrics": "true"
+        "--TempDir": !Sub s3://${ArtifactBucketName}/temporary/
+      GlueVersion: "4.0"
+      WorkerType: G.1X
+      NumberOfWorkers: 2
+      Timeout: 30
+
+  TransactionDataGlueJob:
+    Type: AWS::Glue::Job
+    Properties:
+      Name: !Sub ${ProjectName}-${EnvironmentName}-transaction-job
+      Role: !GetAtt GlueExecutionRole.Arn
+      Command:
+        Name: glueetl
+        ScriptLocation: !Sub s3://${ArtifactBucketName}/src/glue/jobs/job_transaction_data.py
+        PythonVersion: "3"
+      DefaultArguments:
+        "--raw_root": !Sub s3://${RawDataBucketName}/raw
+        "--processed_root": !Sub s3://${CuratedDataBucketName}
+        "--job-language": "python"
+        "--enable-continuous-cloudwatch-log": "true"
+        "--enable-metrics": "true"
+        "--TempDir": !Sub s3://${ArtifactBucketName}/temporary/
+      GlueVersion: "4.0"
+      WorkerType: G.1X
+      NumberOfWorkers: 2
+      Timeout: 30
+
+  DqPublishGlueJob:
+    Type: AWS::Glue::Job
+    Properties:
+      Name: !Sub ${ProjectName}-${EnvironmentName}-dq-job
+      Role: !GetAtt GlueExecutionRole.Arn
+      Command:
+        Name: glueetl
+        ScriptLocation: !Sub s3://${ArtifactBucketName}/src/glue/jobs/job_publish_dq.py
+        PythonVersion: "3"
+      DefaultArguments:
+        "--processed_root": !Sub s3://${CuratedDataBucketName}
+        "--job-language": "python"
+        "--enable-continuous-cloudwatch-log": "true"
+        "--enable-metrics": "true"
+        "--TempDir": !Sub s3://${ArtifactBucketName}/temporary/
+      GlueVersion: "4.0"
+      WorkerType: G.1X
+      NumberOfWorkers: 2
+      Timeout: 15
+
+  RedshiftLoadGlueJob:
+    Type: AWS::Glue::Job
+    Properties:
+      Name: !Sub ${ProjectName}-${EnvironmentName}-redshift-load-job
+      Role: !GetAtt GlueExecutionRole.Arn
+      Command:
+        Name: glueetl
+        ScriptLocation: !Sub s3://${ArtifactBucketName}/src/glue/jobs/job_redshift_load.py
+        PythonVersion: "3"
+      DefaultArguments:
+        "--raw_root": !Sub s3://${RawDataBucketName}/raw
+        "--processed_root": !Sub s3://${CuratedDataBucketName}
+        "--iam_role_arn": !GetAtt RedshiftCopyRole.Arn
+        "--data_bucket": !Ref CuratedDataBucketName
+        "--workgroup_name": !Ref RedshiftWorkgroup
+        "--database_name": !Ref RedshiftDatabaseName
+        "--secret_arn": !Ref RedshiftAdminSecret
+        "--job-language": "python"
+        "--enable-continuous-cloudwatch-log": "true"
+        "--enable-metrics": "true"
+        "--TempDir": !Sub s3://${ArtifactBucketName}/temporary/
+      GlueVersion: "4.0"
+      WorkerType: G.1X
+      NumberOfWorkers: 2
+      Timeout: 30
+
+  BrokerageStateMachine:
+    Type: AWS::StepFunctions::StateMachine
+    Properties:
+      StateMachineName: !Sub ${ProjectName}-${EnvironmentName}-state-machine
+      RoleArn: !GetAtt StepFunctionsExecutionRole.Arn
+      DefinitionString: !Sub |
+        {
+          "Comment": "Daily retail brokerage batch pipeline orchestrated with Step Functions and Glue jobs.",
+          "StartAt": "ResolveBusinessDate",
+          "States": {
+            "ResolveBusinessDate": {
+              "Type": "Choice",
+              "Choices": [
+                {
+                  "Variable": "$.business_date",
+                  "IsPresent": true,
+                  "Next": "SetRuntimeContextFromInput"
+                }
+              ],
+              "Default": "SetRuntimeContextFromExecution"
+            },
+            "SetRuntimeContextFromInput": {
+              "Type": "Pass",
+              "Parameters": {
+                "business_date.$": "$.business_date",
+                "sns_topic_arn.$": "$.sns_topic_arn",
+                "master_job_name.$": "$.master_job_name",
+                "transaction_job_name.$": "$.transaction_job_name",
+                "dq_job_name.$": "$.dq_job_name",
+                "redshift_load_job_name.$": "$.redshift_load_job_name",
+                "raw_root.$": "$.raw_root",
+                "processed_root.$": "$.processed_root",
+                "curated_bucket_name.$": "$.curated_bucket_name",
+                "redshift_iam_role_arn.$": "$.redshift_iam_role_arn",
+                "redshift_workgroup_name.$": "$.redshift_workgroup_name",
+                "redshift_database_name.$": "$.redshift_database_name"
+              },
+              "Next": "RunMasterDataJob"
+            },
+            "SetRuntimeContextFromExecution": {
+              "Type": "Pass",
+              "Parameters": {
+                "business_date.$": "States.ArrayGetItem(States.StringSplit($$.Execution.StartTime, 'T'), 0)",
+                "sns_topic_arn.$": "$.sns_topic_arn",
+                "master_job_name.$": "$.master_job_name",
+                "transaction_job_name.$": "$.transaction_job_name",
+                "dq_job_name.$": "$.dq_job_name",
+                "redshift_load_job_name.$": "$.redshift_load_job_name",
+                "raw_root.$": "$.raw_root",
+                "processed_root.$": "$.processed_root",
+                "curated_bucket_name.$": "$.curated_bucket_name",
+                "redshift_iam_role_arn.$": "$.redshift_iam_role_arn",
+                "redshift_workgroup_name.$": "$.redshift_workgroup_name",
+                "redshift_database_name.$": "$.redshift_database_name"
+              },
+              "Next": "RunMasterDataJob"
+            },
+            "RunMasterDataJob": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::glue:startJobRun.sync",
+              "Parameters": {
+                "JobName": "${MasterDataGlueJob}",
+                "Arguments": {
+                  "--raw_root": "s3://${RawDataBucketName}/raw",
+                  "--processed_root": "s3://${CuratedDataBucketName}",
+                  "--business_date.$": "$.business_date"
+                }
+              },
+              "ResultPath": "$.master_job_result",
+              "Next": "WaitForDelayedTransactionFeed",
+              "Catch": [
+                {
+                  "ErrorEquals": ["States.ALL"],
+                  "ResultPath": "$.error_info",
+                  "Next": "NotifyFailure"
+                }
+              ]
+            },
+            "WaitForDelayedTransactionFeed": {
+              "Type": "Wait",
+              "Seconds": 45,
+              "Next": "RunTransactionDataJob"
+            },
+            "RunTransactionDataJob": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::glue:startJobRun.sync",
+              "Parameters": {
+                "JobName": "${TransactionDataGlueJob}",
+                "Arguments": {
+                  "--raw_root": "s3://${RawDataBucketName}/raw",
+                  "--processed_root": "s3://${CuratedDataBucketName}",
+                  "--business_date.$": "$.business_date"
+                }
+              },
+              "ResultPath": "$.transaction_job_result",
+              "Next": "PublishDataQualitySummary",
+              "Catch": [
+                {
+                  "ErrorEquals": ["States.ALL"],
+                  "ResultPath": "$.error_info",
+                  "Next": "NotifyFailure"
+                }
+              ]
+            },
+            "PublishDataQualitySummary": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::glue:startJobRun.sync",
+              "Parameters": {
+                "JobName": "${DqPublishGlueJob}",
+                "Arguments": {
+                  "--processed_root": "s3://${CuratedDataBucketName}",
+                  "--business_date.$": "$.business_date"
+                }
+              },
+              "ResultPath": "$.dq_publish_result",
+              "Next": "RunRedshiftLoadJob",
+              "Catch": [
+                {
+                  "ErrorEquals": ["States.ALL"],
+                  "ResultPath": "$.error_info",
+                  "Next": "NotifyFailure"
+                }
+              ]
+            },
+            "RunRedshiftLoadJob": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::glue:startJobRun.sync",
+              "Parameters": {
+                "JobName": "${RedshiftLoadGlueJob}",
+                "Arguments": {
+                  "--raw_root.$": "$.raw_root",
+                  "--processed_root": "s3://${CuratedDataBucketName}",
+                  "--business_date.$": "$.business_date",
+                  "--iam_role_arn.$": "$.redshift_iam_role_arn",
+                  "--data_bucket": "${CuratedDataBucketName}",
+                  "--workgroup_name.$": "$.redshift_workgroup_name",
+                  "--database_name.$": "$.redshift_database_name"
+                }
+              },
+              "ResultPath": "$.redshift_load_result",
+              "Next": "NotifySuccess",
+              "Catch": [
+                {
+                  "ErrorEquals": ["States.ALL"],
+                  "ResultPath": "$.error_info",
+                  "Next": "NotifyFailure"
+                }
+              ]
+            },
+            "NotifySuccess": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::sns:publish",
+              "Parameters": {
+                "TopicArn": "${PipelineNotificationTopic}",
+                "Subject": "Brokerage pipeline success",
+                "Message.$": "States.Format('Pipeline run for {} completed successfully.', $.business_date)"
+              },
+              "Next": "MarkPipelineSuccess"
+            },
+            "NotifyFailure": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::sns:publish",
+              "Parameters": {
+                "TopicArn": "${PipelineNotificationTopic}",
+                "Subject": "Brokerage pipeline failure",
+                "Message.$": "States.Format('Pipeline run for {} failed. Error type: {}. Check Step Functions, Glue logs, and DQ outputs for diagnosis.', $.business_date, $.error_info.Error)"
+              },
+              "Next": "MarkPipelineFailure"
+            },
+            "MarkPipelineSuccess": {
+              "Type": "Succeed"
+            },
+            "MarkPipelineFailure": {
+              "Type": "Fail",
+              "Error": "BrokeragePipelineFailed",
+              "Cause": "The daily retail brokerage pipeline failed after SNS notification was published."
+            }
+          }
+        }
+
+  DailyPipelineSchedule:
+    Type: AWS::Scheduler::Schedule #“Create an EventBridge Scheduler rule”
+    Properties:
+      FlexibleTimeWindow: 
+        Mode: "OFF" # So if schedule is 2:00 AM → it runs exactly at 2:00 AM. no delay allowed
+      GroupName: default
+      Name: !Sub ${ProjectName}-${EnvironmentName}-daily-schedule
+      ScheduleExpression: !Ref DailyScheduleExpression
+      ScheduleExpressionTimezone: Asia/Kolkata
+      Target:
+        Arn: !Ref BrokerageStateMachine  # Run this AWS Step Function
+        RoleArn: !GetAtt SchedulerExecutionRole.Arn  #AWS needs permission to invoke Step Function,pass input.This role provides that access.
+        Input: !Sub | #This defines the JSON passed to Step Function.!Sub = allows variable substitution inside JSON.| = multi-line string
+          {
+            "sns_topic_arn": "${PipelineNotificationTopic}",
+            "master_job_name": "${MasterDataGlueJob}",
+            "transaction_job_name": "${TransactionDataGlueJob}",
+            "dq_job_name": "${DqPublishGlueJob}",
+            "redshift_load_job_name": "${RedshiftLoadGlueJob}",
+            "raw_root": "s3://${RawDataBucketName}/raw",
+            "processed_root": "s3://${CuratedDataBucketName}",
+            "curated_bucket_name": "${CuratedDataBucketName}",
+            "redshift_iam_role_arn": "${RedshiftCopyRole.Arn}",
+            "redshift_workgroup_name": "${RedshiftWorkgroup}",
+            "redshift_database_name": "${RedshiftDatabaseName}"
+          }
+
+Outputs:  #“After creating all resources, show me these important values”
+  RawBucketName:
+    Value: !Ref RawBucket
+  CuratedBucketName:
+    Value: !Ref CuratedBucket
+  ArtifactBucketNameOutput:
+    Value: !Ref ArtifactBucket
+  StepFunctionArn:
+    Value: !Ref BrokerageStateMachine
+  NotificationTopicArn:
+    Value: !Ref PipelineNotificationTopic
+  RedshiftWorkgroupName:
+    Value: !Ref RedshiftWorkgroup
+  RedshiftNamespaceName:
+    Value: !Ref RedshiftNamespace
+  RedshiftCopyRoleArn:
+    Value: !GetAtt RedshiftCopyRole.Arn

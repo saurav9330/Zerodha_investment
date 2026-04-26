@@ -1,0 +1,42 @@
+version: 0.2
+
+# The user plans to create the CodeBuild project manually in the AWS console.
+# This buildspec makes that project useful immediately after the repository is
+# connected. The sequence follows the requested order:
+# 1. Deploy infrastructure with CloudFormation.
+# 2. Upload code assets.
+# 3. Run unit tests.
+# 4. Publish code coverage.
+phases:
+  install:
+    runtime-versions:
+      python: 3.11
+    commands:
+      - python -m pip install --upgrade pip
+      - pip install -r requirements.txt
+      #What happens above:
+      # CodeBuild spins up a container and installs Python 3.11
+      # Upgrades pip
+      # Installs all dependencies from requirements.txt
+      # 👉 This is like preparing your environment before running anything.
+  build:
+    commands:
+      - echo "Deploying infrastructure with CloudFormation..."
+      - aws cloudformation deploy --template-file infra/cloudformation/template.yaml --stack-name "${STACK_NAME}" --capabilities CAPABILITY_NAMED_IAM --parameter-overrides "ProjectName=${PROJECT_NAME}" "EnvironmentName=${ENVIRONMENT_NAME}" "ArtifactBucketName=${ARTIFACT_BUCKET_NAME}" "RawDataBucketName=${RAW_DATA_BUCKET_NAME}" "CuratedDataBucketName=${CURATED_DATA_BUCKET_NAME}" "NotificationEmail=${NOTIFICATION_EMAIL}" "AllowedIngressCidr=${ALLOWED_INGRESS_CIDR}" "DailyScheduleExpression=${DAILY_SCHEDULE_EXPRESSION}" "RedshiftAdminUsername=${REDSHIFT_ADMIN_USERNAME}" "RedshiftDatabaseName=${REDSHIFT_DATABASE_NAME:-brokerage}" "RedshiftAdminPassword=${REDSHIFT_ADMIN_PASSWORD}"
+      - echo "Uploading Glue, SQL, and Step Functions assets to S3..."
+      - aws s3 sync src s3://${ARTIFACT_BUCKET_NAME}/src  # this means syn you local path with aws s3 path.this means only changed files will be added in s3 in that particular location.This command uploads your entire src code folder to an S3 bucket so other AWS services can use it.
+      - aws s3 sync generated_data/raw s3://${RAW_DATA_BUCKET_NAME}/raw  
+      - aws s3 sync generated_data/reference s3://${RAW_DATA_BUCKET_NAME}/reference
+      - aws s3 sync src/redshift s3://${ARTIFACT_BUCKET_NAME}/redshift
+      - aws s3 cp src/stepfunctions/state_machine.asl.json s3://${ARTIFACT_BUCKET_NAME}/stepfunctions/state_machine.asl.json
+      - echo "Running unit tests..."
+      - pytest tests/unit -v
+      - echo "Running code coverage..."
+      - pytest tests/unit --cov=src --cov-report=term-missing --cov-report=xml --cov-report=html
+artifacts: #files to save after build
+  files:
+    - coverage.xml
+    - htmlcov/**/*
+    - generated_data/**/*
+    - README.md
+  discard-paths: no   #Preserve folder structure.If yes:all files dumped in one folder 
