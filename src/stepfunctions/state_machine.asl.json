@@ -1,0 +1,181 @@
+{
+  "Comment": "Daily retail brokerage batch pipeline orchestrated with Step Functions and Glue jobs.",
+  "StartAt": "ResolveBusinessDate",
+  "States": {
+    "ResolveBusinessDate": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.business_date",
+          "IsPresent": true,
+          "Next": "SetRuntimeContextFromInput"
+        }
+      ],
+      "Default": "SetRuntimeContextFromExecution"
+    },
+    "SetRuntimeContextFromInput": {
+      "Type": "Pass",
+      "Parameters": {
+        "business_date.$": "$.business_date",
+        "sns_topic_arn.$": "$.sns_topic_arn",
+        "master_job_name.$": "$.master_job_name",
+        "transaction_job_name.$": "$.transaction_job_name",
+        "dq_job_name.$": "$.dq_job_name",
+        "redshift_load_job_name.$": "$.redshift_load_job_name",
+        "raw_root.$": "$.raw_root",
+        "processed_root.$": "$.processed_root",
+        "curated_bucket_name.$": "$.curated_bucket_name",
+        "redshift_iam_role_arn.$": "$.redshift_iam_role_arn",
+        "redshift_workgroup_name.$": "$.redshift_workgroup_name",
+        "redshift_database_name.$": "$.redshift_database_name"
+      },
+      "Next": "RunMasterDataJob"
+    },
+    "SetRuntimeContextFromExecution": {
+      "Type": "Pass",
+      "Parameters": {
+        "business_date.$": "States.ArrayGetItem(States.StringSplit($$.Execution.StartTime, 'T'), 0)",
+        "sns_topic_arn.$": "$.sns_topic_arn",
+        "master_job_name.$": "$.master_job_name",
+        "transaction_job_name.$": "$.transaction_job_name",
+        "dq_job_name.$": "$.dq_job_name",
+        "redshift_load_job_name.$": "$.redshift_load_job_name",
+        "raw_root.$": "$.raw_root",
+        "processed_root.$": "$.processed_root",
+        "curated_bucket_name.$": "$.curated_bucket_name",
+        "redshift_iam_role_arn.$": "$.redshift_iam_role_arn",
+        "redshift_workgroup_name.$": "$.redshift_workgroup_name",
+        "redshift_database_name.$": "$.redshift_database_name"
+      },
+      "Next": "RunMasterDataJob"
+    },
+    "RunMasterDataJob": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",
+      "Parameters": {
+        "JobName.$": "$.master_job_name",
+        "Arguments": {
+          "--raw_root.$": "$.raw_root",
+          "--processed_root.$": "$.processed_root",
+          "--business_date.$": "$.business_date"
+        }
+      },
+      "ResultPath": "$.master_job_result",
+      "Next": "WaitForDelayedTransactionFeed",
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error_info",
+          "Next": "NotifyFailure"
+        }
+      ]
+    },
+    "WaitForDelayedTransactionFeed": {
+      "Type": "Wait",
+      "Seconds": 45,
+      "Next": "RunTransactionDataJob"
+    },
+    "RunTransactionDataJob": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",
+      "Parameters": {
+        "JobName.$": "$.transaction_job_name",
+        "Arguments": {
+          "--raw_root.$": "$.raw_root",
+          "--processed_root.$": "$.processed_root",
+          "--business_date.$": "$.business_date"
+        }
+      },
+      "ResultPath": "$.transaction_job_result",
+      "Next": "PublishDataQualitySummary",
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error_info",
+          "Next": "NotifyFailure"
+        }
+      ]
+    },
+    "PublishDataQualitySummary": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",
+      "Parameters": {
+        "JobName.$": "$.dq_job_name",
+        "Arguments": {
+          "--processed_root.$": "$.processed_root",
+          "--business_date.$": "$.business_date"
+        }
+      },
+      "ResultPath": "$.dq_publish_result",
+      "Next": "RunRedshiftLoadJob",
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error_info",
+          "Next": "NotifyFailure"
+        }
+      ]
+    },
+    "RunRedshiftLoadJob": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",
+      "Parameters": {
+        "JobName.$": "$.redshift_load_job_name",
+        "Arguments": {
+          "--raw_root.$": "$.raw_root",
+          "--processed_root.$": "$.processed_root",
+          "--business_date.$": "$.business_date",
+          "--iam_role_arn.$": "$.redshift_iam_role_arn",
+          "--data_bucket.$": "$.curated_bucket_name",
+          "--workgroup_name.$": "$.redshift_workgroup_name",
+          "--database_name.$": "$.redshift_database_name"
+        }
+      },
+      "ResultPath": "$.redshift_load_result",
+      "Next": "NotifySuccess",
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error_info",
+          "Next": "NotifyFailure"
+        }
+      ]
+    },
+    "NotifySuccess": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::sns:publish",
+      "Parameters": {
+        "TopicArn.$": "$.sns_topic_arn",
+        "Subject": "Brokerage pipeline success",
+        "Message.$": "States.Format('Pipeline run for {} completed successfully.', $.business_date)"
+      },
+      "Next": "MarkPipelineSuccess"
+    },
+    "NotifyFailure": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::sns:publish",
+      "Parameters": {
+        "TopicArn.$": "$.sns_topic_arn",
+        "Subject": "Brokerage pipeline failure",
+        "Message.$": "States.Format('Pipeline run for {} failed. Error type: {}. Check Step Functions, Glue logs, and DQ outputs for diagnosis.', $.business_date, $.error_info.Error)"
+      },
+      "Next": "MarkPipelineFailure"
+    },
+    "MarkPipelineSuccess": {
+      "Type": "Succeed"
+    },
+    "MarkPipelineFailure": {
+      "Type": "Fail",
+      "Error": "BrokeragePipelineFailed",
+      "Cause": "The daily retail brokerage pipeline failed after SNS notification was published."
+    }
+  }
+}
